@@ -60,7 +60,7 @@ const Detail = () => {
     // Organize the internal JSON details object
     const detailsPayload = {
       eventId: eventId.toString(),
-      currentUrl: `https://dcustudentlife.hellorubric.com/?s=${societyId}`,
+      currentUrl: `https://hellorubric.com{societyId}`,
       device: "web_portal",
       version: 4,
       timestamp: Date.now(), // Dynamically uses the current exact time
