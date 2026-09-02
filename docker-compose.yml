@@ -1,0 +1,9 @@
+services:
+  dcuclubsandsocs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dcuclubsandsocs
+    restart: unless-stopped
+    ports:
+      - "80:80"
