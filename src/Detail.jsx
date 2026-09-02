@@ -1,7 +1,6 @@
 import React from "react";
 import data from "./data/15850.json";
 import committee from "./data/15850_committee.json";
-import events from "./data/15850_events.json";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router'
 
@@ -10,6 +9,7 @@ const Detail = () => {
   const { id } = useParams()
 
   const [societyData, setSocietyData] = useState(null);
+  const [eventDetails, setEventDetails] = useState({});
 
   async function fetchSocietyLandingPage(societyId = "14274") {
     const url = "https://api.hellorubric.com/";
@@ -53,6 +53,52 @@ const Detail = () => {
       console.error("Failed to fetch society landing page:", error);
     }
   }
+
+  async function fetchEventDetails(eventId, societyId = "14274") {
+    const url = "https://api.hellorubric.com/";
+
+    // Organize the internal JSON details object
+    const detailsPayload = {
+      eventId: eventId.toString(),
+      currentUrl: `https://hellorubric.com{societyId}`,
+      device: "web_portal",
+      version: 4,
+      timestamp: Date.now(), // Dynamically uses the current exact time
+    };
+    
+    // Build application/x-www-form-urlencoded format
+    const formBody = new URLSearchParams({
+      details: JSON.stringify(detailsPayload),
+      endpoint: "https://appserver.getqpay.com:9090/AppServerSwapnil/event/details",
+    });
+    
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          Accept: "*/*",
+        },
+        body: formBody,
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Event Details Received:", data);
+      setEventDetails((currentDetails) => ({
+        ...currentDetails,
+        [eventId]: data.eventDetails,
+      }));
+      return data;
+    }
+    catch (error) {
+      console.error("Failed to fetch event details:", error);
+    }
+  }
+
 
   useEffect(() => {
     if (!id) return;
@@ -267,9 +313,9 @@ const Detail = () => {
                     aria-expanded="true"
                   >
                     <i className="fa fa-lg mr-3"></i>
-                    Upcoming Event{events.length !== 1 ? "s" : ""}
+                    Upcoming Event{societyData?.sections[0]?.array.length !== 1 ? "s" : ""}
                     <span className="float-right badge badge-light">
-                      {events.length}
+                      {societyData?.sections[0]?.array.length}
                     </span>
                   </h5>
                   <div
@@ -277,7 +323,7 @@ const Detail = () => {
                     id="events_table"
                   >
                     <div className="table-responsive">
-                      {events.map((event, index) => (
+                      {societyData?.sections[0]?.array.map((event, index) => (
                         <table
                           key={index}
                           className="table table-striped d-none mb-0 d-lg-table"
@@ -285,7 +331,7 @@ const Detail = () => {
                           <tbody>
                             <tr
                               className="show_info pointer"
-                              data-id="5284"
+                              data-id={event.eventid}
                               data-type="event"
                             >
                               <td
@@ -304,60 +350,86 @@ const Detail = () => {
                               </td>
                               <th colSpan="7" className="h5 align-middle">
                                 <i className="fa fa-calendar-day mr-3"></i>
-                                {event.name}{" "}
+                                {event.title}{" "}
                               </th>
                             </tr>
                             <tr
                               className="show_info pointer"
-                              data-id="5284"
+                              data-id={event.eventid}
                               data-type="event"
                             >
                               <td className="text-center align-middle"></td>
                               <td className="text-center align-middle">
-                                Starts:
+                                Date:
                                 <br />
-                                <b>{event.start}</b>
-                              </td>
-                              <td className="text-center align-middle">
-                                Ends:
-                                <br />
-                                <b>{event.end}</b>
+                                <b>{event.formatteddate}</b>
                               </td>
                               <td className="text-center align-middle">
                                 Cost:
                                 <br />
-                                <b>€&nbsp;{event.cost}</b>
+                                <b>€&nbsp;{event.info}</b>
                               </td>
                               <td className="text-center align-middle">
-                                <i className="fa fa-users"></i>&nbsp;Max:
-                                <br />
-                                <b>{event.capacity}</b>
-                              </td>
-                              <td className="text-center align-middle">
-                                <b>{event.type}</b>
-                                <br />
-                                Event
-                              </td>
-                              <td className="text-center align-middle">
-                                <button className="btn btn-info py-1">
+                                <button className="btn btn-info py-1" onClick={() => fetchEventDetails(event.eventid, id)}>
                                   <i className="fa fa-info-circle mr-1"></i>
                                   <br />
                                   INFO
                                 </button>
                               </td>
                             </tr>
-                            <tr className="d-none event_details_5284">
-                              <td colSpan="7" className="text-center"></td>
-                            </tr>
-                            <tr className="d-none event_details_5284">
-                              <td colSpan="7" className="break-all">
-                                <h5>
-                                  Location: <b>{event.location}</b>
-                                </h5>
-                                <hr />
-                                <p>{event.description}</p>{" "}
-                              </td>
-                            </tr>
+                            {eventDetails[event.eventid] && (
+                              <>
+                                <tr className={`event_details_${event.eventid}`}>
+                                  <td colSpan="7" className="text-center"></td>
+                                </tr>
+                                <tr className={`event_details_${event.eventid}`}>
+                                  <td colSpan="7" className="break-all">
+                                    <h5>
+                                      Location: <b>{eventDetails[event.eventid].eventAddress}</b>
+                                    </h5>
+                                    <hr />
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: eventDetails[event.eventid].eventDescription,
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+                                <tr className={`event_details_${event.eventid}`}>
+                                  <td colSpan="7" className="text-center"></td>
+                                </tr>
+                                <tr className={`event_details_${event.eventid}`}>
+                                  <td colSpan="7" className="break-all">
+                                    <h5>
+                                      Details:
+                                    </h5>
+                                    <hr />
+                                    <table>
+                                      <tbody>
+                                        <tr className={`event_details_${event.eventid}`}>
+                                          <td className="text-center align-middle">
+                                            <i className="fa fa-users"></i>&nbsp;Max:
+                                            <br />
+                                            <b>{eventDetails[event.eventid].maxTickets}</b>
+                                          </td>
+                                          <td className="text-center align-middle">
+                                            Starts:
+                                            <br />
+                                            <b>{eventDetails[event.eventid].eventTime}</b>
+                                          </td>
+                                          <td className="text-center align-middle">
+                                            Ends:
+                                            <br />
+                                            <b>{eventDetails[event.eventid].eventEndTime}</b>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                                
+                              </>
+                            )}
                           </tbody>
                         </table>
                       ))}
