@@ -61,7 +61,7 @@
     local("Cabin-Regular"),
     url(https://web.archive.org/web/20251214155449im_/https://cdn.dcuclubs.ie/cp/fonts/cabin-v14-latin-regular.eot#iefix)
       format("embedded-opentype"),
-    url(cabin-v14-latin-regular.woff2)
+    url(/cabin-v14-latin-regular.woff2)
       format("woff2"),
     url(https://web.archive.org/web/20251214155449im_/https://cdn.dcuclubs.ie/cp/fonts/cabin-v14-latin-regular.woff)
       format("woff"),
@@ -80,7 +80,7 @@
     local("Cabin-Medium"),
     url(https://web.archive.org/web/20251214155449im_/https://cdn.dcuclubs.ie/cp/fonts/cabin-v14-latin-500.eot#iefix)
       format("embedded-opentype"),
-    url(cabin-v14-latin-500.woff2)
+    url(/cabin-v14-latin-500.woff2)
       format("woff2"),
     url(https://web.archive.org/web/20251214155449im_/https://cdn.dcuclubs.ie/cp/fonts/cabin-v14-latin-500.woff)
       format("woff"),
@@ -99,7 +99,7 @@
     local("Cabin-Bold"),
     url(https://web.archive.org/web/20251214155449im_/https://cdn.dcuclubs.ie/cp/fonts/cabin-v14-latin-700.eot#iefix)
       format("embedded-opentype"),
-    url(cabin-v14-latin-700.woff2)
+    url(/cabin-v14-latin-700.woff2)
       format("woff2"),
     url(https://web.archive.org/web/20251214155449im_/https://cdn.dcuclubs.ie/cp/fonts/cabin-v14-latin-700.woff)
       format("woff"),
