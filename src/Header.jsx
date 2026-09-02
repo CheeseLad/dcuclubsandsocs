@@ -70,7 +70,7 @@ const Header = () => {
                 <nav className="navbar navbar-expand-xl navbar-light" id="nav">
                   <a
                     className="navbar-brand"
-                    href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/"
+                    href="/"
                     data-toggle="tooltip"
                     title=""
                     data-original-title="DCU Clubs &amp; Socs Home"

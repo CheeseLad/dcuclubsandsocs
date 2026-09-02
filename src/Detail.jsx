@@ -47,6 +47,7 @@ const Detail = () => {
       const data = await response.json();
       console.log("Society Data Received:", data);
       setSocietyData(data);
+      document.title = `${data.name} | DCU Clubs & Socs`;
       return data;
     } catch (error) {
       console.error("Failed to fetch society landing page:", error);
