@@ -1,7 +1,65 @@
 import socs from "./data/socs.json";
-import clubs from "./data/clubs.json";
+import { useState, useEffect } from "react";
 
 const Header = () => {
+  const [societyList, setSocietyList] = useState(null);
+
+  async function fetchSocietyList() {
+    const url = "https://api.hellorubric.com/";
+
+    // Organize the internal JSON details object
+    const detailsPayload = {
+      firstCall:true,
+      sortType: "itemName",
+      desiredType: "societies",
+      state: "Leinster",
+      country: "IE",
+      universityid: 541,
+      limit:1000,
+      offset:0,
+      sortDirection:"asc",
+      searchQuery:"",
+      eventsPeriodFilter:"All",
+      domain: "campus.hellorubric.com",
+      currentUrl: `https://hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541`,
+      device: "web_portal",
+      version: 4,
+      timestamp: Date.now(), // Dynamically uses the current exact time
+    };
+
+    // Build application/x-www-form-urlencoded format
+    const formBody = new URLSearchParams({
+      endpoint: "getUnifiedSearch",
+      details: JSON.stringify(detailsPayload),
+    });
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          Accept: "*/*",
+        },
+        body: formBody,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Society List Received:", data.results);
+      setSocietyList(data.results);
+      return data;
+    } catch (error) {
+      console.error("Failed to fetch society landing page:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchSocietyList();
+  }, []);
+
   return (
     <div>
       <header className="header_area animated">
@@ -49,19 +107,11 @@ const Header = () => {
                           className="nav-link"
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/about"
                         >
-                          <i className="fa fa-fw fa-info-circle mr-2"></i> About /
-                          Links
+                          <i className="fa fa-fw fa-info-circle mr-2"></i> About
+                          / Links
                         </a>
                       </li>
 
-                      <li className="nav-item">
-                        <a
-                          className="nav-link"
-                          href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/clubs/list"
-                        >
-                          <i className="fa fa-fw fa-list-ul mr-2"></i> Clubs List
-                        </a>
-                      </li>
 
                       <li className="nav-item">
                         <a
@@ -78,7 +128,8 @@ const Header = () => {
                           className="nav-link"
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/whatson"
                         >
-                          <i className="fa fa-fw fa-calendar mr-2"></i> What's On
+                          <i className="fa fa-fw fa-calendar mr-2"></i> What's
+                          On
                         </a>
                       </li>
 
@@ -87,8 +138,8 @@ const Header = () => {
                           className="nav-link"
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/support"
                         >
-                          <i className="fa fa-fw fa-question-circle mr-2"></i> Help
-                          / Support
+                          <i className="fa fa-fw fa-question-circle mr-2"></i>{" "}
+                          Help / Support
                         </a>
                       </li>
 
@@ -99,8 +150,8 @@ const Header = () => {
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/login"
                           className="nav-link"
                         >
-                          <i className="fa fa-fw fa-sign-in-alt mr-2"></i> Log In /
-                          Register
+                          <i className="fa fa-fw fa-sign-in-alt mr-2"></i> Log
+                          In / Register
                         </a>
                       </li>
                     </ul>
@@ -116,7 +167,8 @@ const Header = () => {
                             aria-haspopup="true"
                             aria-expanded="false"
                           >
-                            <i className="fa fa-sm fa-info-circle mr-2"></i>About
+                            <i className="fa fa-sm fa-info-circle mr-2"></i>
+                            About
                           </a>
                           <ul
                             className="dropdown-menu mega-menu"
@@ -227,52 +279,7 @@ const Header = () => {
                         </div>
                       </li>
 
-                      <li>
-                        <div className="dropdown">
-                          <a
-                            href="#"
-                            className="nav-link"
-                            id="dropdownMenuClubs"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i className="fa fa-sm fa-list-ul mr-2"></i>Clubs
-                          </a>
-                          <ul
-                            className="dropdown-menu mega-menu"
-                            aria-labelledby="dropdownMenuClubs"
-                          >
-                            <li className="container">
-                              <div className="col-12 text-center">
-                                <a
-                                  href="/clubs"
-                                  className="dropdown-item dropdown-header"
-                                >
-                                  Go to ALL CLUBS page »
-                                </a>
-                              </div>
-
-                              <hr className="mt-2" />
-                              <div className="row">
-                                {clubs.map((club, index) => (
-                                <div key={index} className="col-12 col-sm-4 col-md-3">
-                                  <a
-                                    href={`/club/${club.id}`}
-                                    data-toggle="tooltip"
-                                    title=""
-                                    className="dropdown-item"
-                                    data-original-title={club.name}
-                                  >
-                                    ‐&nbsp;{club.name}
-                                  </a>
-                                </div>
-                                ))}
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
+                    
 
                       <li>
                         <div className="dropdown">
@@ -284,7 +291,8 @@ const Header = () => {
                             aria-haspopup="true"
                             aria-expanded="false"
                           >
-                            <i className="fa fa-sm fa-list-ul mr-2"></i>Societies
+                            <i className="fa fa-sm fa-list-ul mr-2"></i>
+                            Societies
                           </a>
                           <ul
                             className="dropdown-menu mega-menu"
@@ -303,18 +311,20 @@ const Header = () => {
                               <hr className="mt-2" />
                               <div className="row">
                                 {socs.map((society, index) => (
-                                    
-                                <div key={index} className="col-12 col-sm-4 col-md-3">
-                                  <a
-                                    href={`/society/${society.id}`}
-                                    data-toggle="tooltip"
-                                    title=""
-                                    className="dropdown-item"
-                                    data-original-title={society.name}
+                                  <div
+                                    key={index}
+                                    className="col-12 col-sm-4 col-md-3"
                                   >
-                                    ‐&nbsp;{society.name}
-                                  </a>
-                                </div>
+                                    <a
+                                      href={`/society/${society.societyid}`}
+                                      data-toggle="tooltip"
+                                      title=""
+                                      className="dropdown-item"
+                                      data-original-title={society.title}
+                                    >
+                                      ‐&nbsp;{society.title}
+                                    </a>
+                                  </div>
                                 ))}
                               </div>
                             </li>
@@ -328,7 +338,8 @@ const Header = () => {
                             href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/whatson"
                             className="nav-link"
                           >
-                            <i className="fa fa-sm fa-calendar mr-2"></i>What's On
+                            <i className="fa fa-sm fa-calendar mr-2"></i>What's
+                            On
                           </a>
                         </div>
                       </li>
@@ -343,7 +354,8 @@ const Header = () => {
                             aria-haspopup="true"
                             aria-expanded="false"
                           >
-                            <i className="fa fa-question-circle mr-2"></i>Support
+                            <i className="fa fa-question-circle mr-2"></i>
+                            Support
                           </a>
                           <ul
                             className="dropdown-menu mega-menu"
@@ -419,8 +431,8 @@ const Header = () => {
                                     title=""
                                     data-original-title="Click Here to Send a Message"
                                   >
-                                    <i className="fa fa-envelope pr-1"></i> Send a
-                                    Contact Message
+                                    <i className="fa fa-envelope pr-1"></i> Send
+                                    a Contact Message
                                   </a>
 
                                   <a
@@ -432,8 +444,8 @@ const Header = () => {
                                     className="dropdown-item"
                                     data-original-title="Clubs &amp; Societies Support Phone"
                                   >
-                                    <i className="fa fa-phone pr-1"></i> +353 (0)1
-                                    700 6164
+                                    <i className="fa fa-phone pr-1"></i> +353
+                                    (0)1 700 6164
                                   </a>
 
                                   <a
@@ -457,7 +469,8 @@ const Header = () => {
                                 href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/support/faqs"
                                 className="btn btn-info btn-sm px-3 mx-3"
                               >
-                                <i className="fa fa-question-circle mr-2"></i>FAQs
+                                <i className="fa fa-question-circle mr-2"></i>
+                                FAQs
                               </a>
 
                               <a

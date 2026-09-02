@@ -3,8 +3,12 @@ import data from "./data/15850.json";
 import committee from "./data/15850_committee.json";
 import events from "./data/15850_events.json";
 import { useEffect, useState } from "react";
+import { useParams } from 'react-router'
 
 const Detail = () => {
+
+  const { id } = useParams()
+
   const [societyData, setSocietyData] = useState(null);
 
   async function fetchSocietyLandingPage(societyId = "14274") {
@@ -50,8 +54,10 @@ const Detail = () => {
   }
 
   useEffect(() => {
-    fetchSocietyLandingPage("15850");
-  }, []);
+    if (!id) return;
+    console.log("Fetching society landing page for ID:", id);
+    fetchSocietyLandingPage(id);
+  }, [id]);
 
   return (
     <div>
@@ -128,6 +134,21 @@ const Detail = () => {
                     </a>
 
                     <div className="text-center">
+                      {societyData?.discordurl && (
+                        <a
+                          href={societyData?.discordurl}
+                          data-toggle="tooltip"
+                          title=""
+                          aria-label="Discord Server"
+                          target="_blank"
+                          rel="noopener"
+                          className="btn btn-primary bg-primary mb-3 mx-1"
+                          data-original-title="Discord Server"
+                        >
+                          <i className="fab fa-fw fa-3x fa-discord"></i>
+                        </a>
+                      )}
+
                       {societyData?.websiteurl && (
                         <a
                           href={societyData?.websiteurl}
@@ -363,30 +384,25 @@ const Detail = () => {
                       <div className="row">
                         <div className="col-12">
                           <a
-                            target="_blank"
-                            href="https://web.archive.org/web/20260312165547/https://cdn.dcuclubs.ie/user_files/constitution/10102/90fed3cd65242f8ddbced54a7f2bd515.pdf"
                             className="mr-3"
                           >
-                            <i className="fa fa-file-pdf mr-2"></i>
-                            {societyData?.name} —
-                            <b>
-                              <u>Constitution</u>
-                            </b>
+                            University — {societyData?.uniname}
                           </a>
                         </div>
                         <div className="col-12">
                           <a
-                            target="_blank"
-                            href="https://web.archive.org/web/20260312165547/https://cdn.dcuclubs.ie/user_files/safety_statement/10102/6c76c1fd3d76c609fdefcf18a9398b60.pdf"
                             className="mr-3"
                           >
-                            <i className="fa fa-file-pdf mr-2"></i>
-                            {societyData?.name} —
-                            <b>
-                              <u>Safety Statement</u>
-                            </b>
+                            Category — {societyData?.club_type}
                           </a>
                         </div>
+                        <div className="col-12">
+                          <a
+                            className="mr-3"
+                          >
+                            On Rubric since — {societyData?.society_created_date}
+                          </a>
+                        </div>                                                
                       </div>
                     </div>
                   </div>
@@ -413,7 +429,7 @@ const Detail = () => {
                         {societyData?.sections[3].array.map((member, index) => (
                           <tr key={index}>
                             <th>{member.subtitle}</th>
-                            <td>{member.title}</td>
+                            <td>{member.title.replace(/[0-9]/g, '').trim()}</td>
                           </tr>
                         ))}
                       </tbody>
