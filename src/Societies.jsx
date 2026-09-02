@@ -48,7 +48,7 @@ const Societies = () => {
       }
 
       const data = await response.json();
-      console.log("Society List Received:", data.results);
+      //console.log("Society List Received:", data.results);
       setSocietyList(data.results);
       return data;
     } catch (error) {

@@ -42,7 +42,7 @@ const Detail = () => {
       }
 
       const data = await response.json();
-      console.log("Society Data Received:", data);
+      //console.log("Society Data Received:", data);
       setSocietyData(data);
       document.title = `${data.name} | DCU Clubs & Socs`;
       return data;
@@ -84,7 +84,7 @@ const Detail = () => {
       }
 
       const data = await response.json();
-      console.log("Event Details Received:", data);
+      //console.log("Event Details Received:", data);
       setEventDetails((currentDetails) => ({
         ...currentDetails,
         [eventId]: data.eventDetails,
@@ -99,7 +99,7 @@ const Detail = () => {
 
   useEffect(() => {
     if (!id) return;
-    console.log("Fetching society landing page for ID:", id);
+    //console.log("Fetching society landing page for ID:", id);
     fetchSocietyLandingPage(id);
   }, [id]);
 
