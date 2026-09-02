@@ -9,12 +9,15 @@ import {
 
 import Header from './Header'
 import Detail from './Detail'
+import Footer from './Footer'
+import Societies from './Societies'
 
 function Layout() {
   return (
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   )
 }
@@ -24,8 +27,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<div></div>} />
+          <Route path="/" element={<Societies />} />
           <Route path="/society/:id" element={<Detail />} />
+          <Route path="/societies" element={<Societies />} />
         </Route>
       </Routes>
     </BrowserRouter>

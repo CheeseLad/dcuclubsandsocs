@@ -1,6 +1,3 @@
-import React from "react";
-import data from "./data/15850.json";
-import committee from "./data/15850_committee.json";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router'
 

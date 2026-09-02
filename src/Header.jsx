@@ -1,8 +1,7 @@
-import socs from "./data/socs.json";
 import { useState, useEffect } from "react";
 
 const Header = () => {
-  const [societyList, setSocietyList] = useState(null);
+  const [societyList, setSocietyList] = useState([]);
 
   async function fetchSocietyList() {
     const url = "https://api.hellorubric.com/";
@@ -116,7 +115,7 @@ const Header = () => {
                       <li className="nav-item">
                         <a
                           className="nav-link"
-                          href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/societies/list"
+                          href="/societies"
                         >
                           <i className="fa fa-fw fa-list-ul mr-2"></i> Societies
                           List
@@ -158,7 +157,7 @@ const Header = () => {
 
                     <ul className="navbar-nav nav-mega ml-auto">
                       <li className="nav-item">
-                        <div className="dropdown">
+                        {/*<div className="dropdown">
                           <a
                             href="#"
                             className="nav-link"
@@ -276,7 +275,7 @@ const Header = () => {
                               </div>
                             </li>
                           </ul>
-                        </div>
+                        </div>*/}
                       </li>
 
                     
@@ -310,9 +309,9 @@ const Header = () => {
 
                               <hr className="mt-2" />
                               <div className="row">
-                                {socs.map((society, index) => (
+                                {societyList.map((society) => (
                                   <div
-                                    key={index}
+                                    key={society.societyid}
                                     className="col-12 col-sm-4 col-md-3"
                                   >
                                     <a
@@ -332,7 +331,7 @@ const Header = () => {
                         </div>
                       </li>
 
-                      <li className="nav-item">
+                      {/*<li className="nav-item">
                         <div>
                           <a
                             href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/whatson"
@@ -483,14 +482,14 @@ const Header = () => {
                             </div>
                           </ul>
                         </div>
-                      </li>
+                      </li> */}
                     </ul>
 
-                    <div className="sign-up-button ml-3 d-none d-xl-block">
+                    {/*<div className="sign-up-button ml-3 d-none d-xl-block">
                       <a href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/login">
                         Log In / Register
                       </a>
-                    </div>
+                    </div> */}
                   </div>
                 </nav>
               </div>
