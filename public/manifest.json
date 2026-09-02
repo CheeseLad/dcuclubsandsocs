@@ -1,0 +1,28 @@
+{
+  "short_name": "DCU C&S",
+  "name": "DCU Clubs & Societies",
+  "start_url": "/?utm_source=homescreen",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#12894E",
+  "background_color": "#FFFFFF",
+  "url": "https://web.archive.org/web/20251214155455/https://dcuclubsandsocs.ie",
+  "manifestUrl": "https://web.archive.org/web/20251214155455/https://dcuclubsandsocs.ie/cdn/manifest.json",
+  "orientation": "portrait",
+  "categories": ["social", "sports", "education", "lifestyle"],
+  "description": "DCU Clubs and Socs is the home of Clubs and Societies for all students at the Dublin City University, Ireland.",
+  "icons": [
+    {
+      "src": "/cdn/img/logo/maskable_icon_x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/cdn/img/logo/maskable_icon_x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    }
+  ]
+}

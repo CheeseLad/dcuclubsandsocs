@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Free Breakfast - Glasnevin Campus",
+        "image": "https://resources.hellorubric.com/uploaded_assets/360d4d2c-8b9c-4219-a327-779cde5be0ae.png",
+        "start": "2026-09-07T08:30:00",
+        "end": "2026-09-07T09:30:00",
+        "day": "Monday",
+        "cost": 0,
+        "capacity": 10000,
+        "type": "IN-PERSON",
+        "location": "dublin city university",
+        "description": "Monday\nTuesday\nWednesday"
+    },
+    {
+        "name": "Music Bingo",
+        "image": "https://resources.hellorubric.com/uploaded_assets/84d08be9-87a1-4077-bdd1-300d0b9eb188.png",
+        "start": "2026-09-07T19:00:00",
+        "end": "2026-09-07T23:00:00",
+        "day": "Monday",
+        "cost": 0,
+        "capacity": 10000,
+        "type": "IN-PERSON",
+        "location": "Dublin City University, Collins Avenue Extension, Whitehall, Dublin 9, Ireland",
+        "description": "TBC"
+    }
+]

@@ -1,0 +1,29 @@
+{
+    "id": "15850",
+    "name": "DCU Students' Union",
+    "icon": "https://resources.hellorubric.com/uploaded_assets/0417a9b9-73be-42d0-8a0e-3abe24b790be.png",
+    "title": "DCU Students' Union",
+    "about": "DCU Students’ Union is the representative body of all DCU students. As soon as you become a student, you’re automatically a member of DCUSU. Welcome to the family!",
+    "links": [
+        {
+            "name": "Email Society",
+            "url": "mailto:studentlife@dcu.ie"
+        },
+        {
+            "name": "Facebook Page",
+            "url": "https://www.facebook.com/dcustudentsunion"
+        },
+        {
+            "name": "Instagram Profile",
+            "url": "https://www.instagram.com/dcu_su/"
+        },
+        {
+            "name": "LinkedIn Profile",
+            "url": "https://www.linkedin.com/company/dcu-students'-union"
+        },
+        {
+            "name": "TikTok Profile",
+            "url": "https://www.tiktok.com/@dcustudentsunion"
+        }
+    ]
+}

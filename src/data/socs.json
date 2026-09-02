@@ -1,0 +1,397 @@
+[
+  {
+    "id": "test",
+    "name": "Test Society",
+    "is_locked": false
+  },
+  {
+    "id": "access",
+    "name": "Access Society",
+    "is_locked": false
+  },
+  {
+    "id": "africa",
+    "name": "Africa Society",
+    "is_locked": true
+  },
+  {
+    "id": "agricultural",
+    "name": "Agricultural Society",
+    "is_locked": false
+  },
+  {
+    "id": "anime-scifi",
+    "name": "Anime & Sci Fi Society",
+    "is_locked": true
+  },
+  {
+    "id": "arab",
+    "name": "Arab Society",
+    "is_locked": true
+  },
+  {
+    "id": "arts-crafts-design",
+    "name": "Arts Crafts and Design Society",
+    "is_locked": true
+  },
+  {
+    "id": "astronomy",
+    "name": "Astronomy Society",
+    "is_locked": true
+  },
+  {
+    "id": "biology",
+    "name": "Biology Society",
+    "is_locked": true
+  },
+  {
+    "id": "business",
+    "name": "Business Society",
+    "is_locked": true
+  },
+  {
+    "id": "cards",
+    "name": "Cards",
+    "is_locked": true
+  },
+  {
+    "id": "catholic",
+    "name": "Catholic Society",
+    "is_locked": true
+  },
+  {
+    "id": "chemistry",
+    "name": "Chemistry Society",
+    "is_locked": true
+  },
+  {
+    "id": "chinese",
+    "name": "Chinese Society",
+    "is_locked": true
+  },
+  {
+    "id": "christian-union",
+    "name": "Christian Union",
+    "is_locked": true
+  },
+  {
+    "id": "classics",
+    "name": "Classics Society",
+    "is_locked": true
+  },
+  {
+    "id": "computer-science",
+    "name": "Computer Science Society",
+    "is_locked": true
+  },
+  {
+    "id": "cuallacht",
+    "name": "Cuallacht Cholm Cille",
+    "is_locked": true
+  },
+  {
+    "id": "dance",
+    "name": "Dance Society",
+    "is_locked": true
+  },
+  {
+    "id": "data-science",
+    "name": "Data Science Society",
+    "is_locked": true
+  },
+  {
+    "id": "deutsch",
+    "name": "Deutsch Society",
+    "is_locked": true
+  },
+  {
+    "id": "disney",
+    "name": "Disney Society",
+    "is_locked": true
+  },
+  {
+    "id": "dj",
+    "name": "DJ Society",
+    "is_locked": true
+  },
+  {
+    "id": "drama",
+    "name": "Drama Society",
+    "is_locked": true
+  },
+  {
+    "id": "e-sports",
+    "name": "E-Sports Society",
+    "is_locked": true
+  },
+  {
+    "id": "economics",
+    "name": "Economics Society",
+    "is_locked": true
+  },
+  {
+    "id": "elsa",
+    "name": "ELSA Society",
+    "is_locked": true
+  },
+  {
+    "id": "engineering-robotics",
+    "name": "Engineering & Robotics Society",
+    "is_locked": true
+  },
+  {
+    "id": "environmental",
+    "name": "Environmental Society",
+    "is_locked": false
+  },
+  {
+    "id": "esn",
+    "name": "Erasmus Student Network",
+    "is_locked": true
+  },
+  {
+    "id": "fashion",
+    "name": "Fashion Society",
+    "is_locked": true
+  },
+  {
+    "id": "filipino",
+    "name": "Filipino Society",
+    "is_locked": true
+  },
+  {
+    "id": "film",
+    "name": "Film Society",
+    "is_locked": true
+  },
+  {
+    "id": "flac",
+    "name": "FLAC Society",
+    "is_locked": true
+  },
+  {
+    "id": "french",
+    "name": "French Society",
+    "is_locked": true
+  },
+  {
+    "id": "froebel",
+    "name": "Froebel Society",
+    "is_locked": true
+  },
+  {
+    "id": "games",
+    "name": "Games Society",
+    "is_locked": false
+  },
+  {
+    "id": "geography",
+    "name": "Geography Society",
+    "is_locked": true
+  },
+  {
+    "id": "history",
+    "name": "History Society",
+    "is_locked": true
+  },
+  {
+    "id": "ignited-christians",
+    "name": "Ignited Christians in University",
+    "is_locked": true
+  },
+  {
+    "id": "indian",
+    "name": "Indian Society",
+    "is_locked": true
+  },
+  {
+    "id": "international-law",
+    "name": "International Law Society",
+    "is_locked": true
+  },
+  {
+    "id": "investors",
+    "name": "Investors Society",
+    "is_locked": true
+  },
+  {
+    "id": "islamic",
+    "name": "Islamic Society",
+    "is_locked": false
+  },
+  {
+    "id": "knitting-crochet",
+    "name": "Knitting & Crochet Society",
+    "is_locked": false
+  },
+  {
+    "id": "law",
+    "name": "Law Society",
+    "is_locked": false
+  },
+  {
+    "id": "law-technology",
+    "name": "Law & Technology Society",
+    "is_locked": true
+  },
+  {
+    "id": "lego",
+    "name": "Lego Society",
+    "is_locked": true
+  },
+  {
+    "id": "marxist",
+    "name": "Marxist Society",
+    "is_locked": true
+  },
+  {
+    "id": "maths",
+    "name": "Maths & Physics Society",
+    "is_locked": false
+  },
+  {
+    "id": "mature",
+    "name": "Mature Society",
+    "is_locked": true
+  },
+  {
+    "id": "music",
+    "name": "Music Society",
+    "is_locked": true
+  },
+  {
+    "id": "madsoc",
+    "name": "Musical Society",
+    "is_locked": false
+  },
+  {
+    "id": "neurodiversity",
+    "name": "Neurodiversity Society",
+    "is_locked": true
+  },
+  {
+    "id": "fianna-fail",
+    "name": "Ogra Fianna Fail",
+    "is_locked": true
+  },
+  {
+    "id": "people-before-profit",
+    "name": "People Before Profit",
+    "is_locked": true
+  },
+  {
+    "id": "people-of-colour-in-law",
+    "name": "People of Colour in Law Society",
+    "is_locked": false
+  },
+  {
+    "id": "philosophy",
+    "name": "Philosophy Society",
+    "is_locked": true
+  },
+  {
+    "id": "polish",
+    "name": "Polish Society",
+    "is_locked": true
+  },
+  {
+    "id": "politic-sociology",
+    "name": "Politics & Sociology Society",
+    "is_locked": true
+  },
+  {
+    "id": "pride",
+    "name": "Pride Society",
+    "is_locked": false
+  },
+  {
+    "id": "psychology",
+    "name": "Psychology Society",
+    "is_locked": true
+  },
+  {
+    "id": "publication-literary",
+    "name": "Publication & Literary Society",
+    "is_locked": false
+  },
+  {
+    "id": "radio",
+    "name": "Radio Society",
+    "is_locked": false
+  },
+  {
+    "id": "sinn-fein",
+    "name": "Sinn Fein",
+    "is_locked": true
+  },
+  {
+    "id": "social-democrats",
+    "name": "Social Democrats",
+    "is_locked": false
+  },
+  {
+    "id": "spanish",
+    "name": "Spanish Society",
+    "is_locked": true
+  },
+  {
+    "id": "st-catherines",
+    "name": "St Catherines Society",
+    "is_locked": false
+  },
+  {
+    "id": "svp",
+    "name": "SVP Society",
+    "is_locked": true
+  },
+  {
+    "id": "tea",
+    "name": "Tea Society",
+    "is_locked": true
+  },
+  {
+    "id": "the-purpose-movement",
+    "name": "The Purpose Movement Society",
+    "is_locked": true
+  },
+  {
+    "id": "thomistic-institute",
+    "name": "Thomistic Institute",
+    "is_locked": true
+  },
+  {
+    "id": "trad-music",
+    "name": "Trad Music Society",
+    "is_locked": true
+  },
+  {
+    "id": "ukrainian",
+    "name": "Ukrainian Society",
+    "is_locked": true
+  },
+  {
+    "id": "visual-media",
+    "name": "Visual Media",
+    "is_locked": true
+  },
+  {
+    "id": "women-in-law",
+    "name": "Women in Law Society",
+    "is_locked": true
+  },
+  {
+    "id": "women-in-stem",
+    "name": "Women in STEM Society",
+    "is_locked": false
+  },
+  {
+    "id": "yoga",
+    "name": "Yoga Society",
+    "is_locked": true
+  },
+  {
+    "id": "young-fine-gael",
+    "name": "Young Fine Gael",
+    "is_locked": true
+  }
+]

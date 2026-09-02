@@ -1,0 +1,172 @@
+[
+  {
+    "id": "aikido",
+    "name": "Aikido Club",
+    "is_locked": true
+  },
+  {
+    "id": "american-football",
+    "name": "American Football",
+    "is_locked": true
+  },
+  {
+    "id": "archery",
+    "name": "Archery Club",
+    "is_locked": false
+  },
+  {
+    "id": "athletics",
+    "name": "Athletics Club",
+    "is_locked": true
+  },
+  {
+    "id": "badminton",
+    "name": "Badminton Club",
+    "is_locked": false
+  },
+  {
+    "id": "basketball",
+    "name": "Basketball Club",
+    "is_locked": true
+  },
+  {
+    "id": "boxing",
+    "name": "Boxing Club",
+    "is_locked": true
+  },
+  {
+    "id": "chess",
+    "name": "Chess Club",
+    "is_locked": true
+  },
+  {
+    "id": "darts",
+    "name": "Darts Club",
+    "is_locked": false
+  },
+  {
+    "id": "dodgeball",
+    "name": "Dodgeball Club",
+    "is_locked": true
+  },
+  {
+    "id": "equestrian",
+    "name": "Equestrian Club",
+    "is_locked": true
+  },
+  {
+    "id": "gaa",
+    "name": "GAA Club",
+    "is_locked": true
+  },
+  {
+    "id": "handball",
+    "name": "GAA Handball Club",
+    "is_locked": true
+  },
+  {
+    "id": "go-karting",
+    "name": "Go Karting Club",
+    "is_locked": true
+  },
+  {
+    "id": "golf",
+    "name": "Golf Club",
+    "is_locked": true
+  },
+  {
+    "id": "hockey",
+    "name": "Hockey Club",
+    "is_locked": true
+  },
+  {
+    "id": "jiu-jitsu",
+    "name": "Jiu Jitsu Club",
+    "is_locked": false
+  },
+  {
+    "id": "judo",
+    "name": "Judo Club",
+    "is_locked": true
+  },
+  {
+    "id": "kickboxing",
+    "name": "Muay Thai Club",
+    "is_locked": true
+  },
+  {
+    "id": "muck",
+    "name": "MUCK",
+    "is_locked": true
+  },
+  {
+    "id": "rock-climbing",
+    "name": "Rock Climbing",
+    "is_locked": true
+  },
+  {
+    "id": "rovers",
+    "name": "Rovers",
+    "is_locked": false
+  },
+  {
+    "id": "rugby",
+    "name": "Rugby Club",
+    "is_locked": true
+  },
+  {
+    "id": "shotokan-karate",
+    "name": "Shotokan Karate",
+    "is_locked": false
+  },
+  {
+    "id": "snooker",
+    "name": "Snooker Club",
+    "is_locked": true
+  },
+  {
+    "id": "snowsports",
+    "name": "Snowsports",
+    "is_locked": true
+  },
+  {
+    "id": "soccer",
+    "name": "Soccer Club",
+    "is_locked": false
+  },
+  {
+    "id": "surf",
+    "name": "Surf Club",
+    "is_locked": true
+  },
+  {
+    "id": "swimming",
+    "name": "Swimming Club",
+    "is_locked": true
+  },
+  {
+    "id": "table-tennis",
+    "name": "Table Tennis Club",
+    "is_locked": true
+  },
+  {
+    "id": "tennis",
+    "name": "Tennis Club",
+    "is_locked": true
+  },
+  {
+    "id": "trampoline",
+    "name": "Trampoline Club",
+    "is_locked": true
+  },
+  {
+    "id": "ultimate-frisbee",
+    "name": "Ultimate Frisbee",
+    "is_locked": true
+  },
+  {
+    "id": "volleyball",
+    "name": "Volleyball Club",
+    "is_locked": true
+  }
+]
