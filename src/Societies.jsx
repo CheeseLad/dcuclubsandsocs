@@ -66,7 +66,7 @@ const Societies = () => {
       className="bg-white "
       style={{
         boxShadow: "rgba(0, 0, 0, 0.3) 0px 20px 30px -20px",
-        marginBottom: "516.4px",
+        //marginBottom: "516.4px",
       }}
     >
       <div id="pagecover"></div>

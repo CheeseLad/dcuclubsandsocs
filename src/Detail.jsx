@@ -7,6 +7,19 @@ const Detail = () => {
 
   const [societyData, setSocietyData] = useState(null);
   const [eventDetails, setEventDetails] = useState({});
+  const [expandedSections, setExpandedSections] = useState({
+    links: true,
+    events: true,
+    about: true,
+    committee: false,
+  });
+
+  const toggleSection = (section) => {
+    setExpandedSections((currentSections) => ({
+      ...currentSections,
+      [section]: !currentSections[section],
+    }));
+  };
 
   async function fetchSocietyLandingPage(societyId = "14274") {
     const url = "https://api.hellorubric.com/";
@@ -111,7 +124,7 @@ const Detail = () => {
         className="bg-white"
         style={{
           boxShadow: "rgba(0, 0, 0, 0.3) 0px 20px 30px -20px",
-          marginBottom: "516px",
+          //marginBottom: "516px",
         }}
       >
         <div id="pagecover"></div>
@@ -157,10 +170,11 @@ const Detail = () => {
 
                 <div className="card mb-3 collapse_section">
                   <h5
-                    className="card-header bg-dark text-light pointer collapse_title active"
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.links ? "active" : ""}`}
                     data-toggle="collapse"
                     data-target="#links_table"
-                    aria-expanded="true"
+                    aria-expanded={expandedSections.links}
+                    onClick={() => toggleSection("links")}
                   >
                     <i className="fa fa-lg mr-3"></i>
                     {societyData?.name} Links
@@ -304,10 +318,11 @@ const Detail = () => {
               <div className="col-12 col-lg-8">
                 <div className="card mb-3 collapse_section" id="events">
                   <h5
-                    className="card-header bg-dark text-light pointer collapse_title active"
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.events ? "active" : ""}`}
                     data-toggle="collapse"
                     data-target="#events_table"
-                    aria-expanded="true"
+                    aria-expanded={expandedSections.events}
+                    onClick={() => toggleSection("events")}
                   >
                     <i className="fa fa-lg mr-3"></i>
                     Upcoming Event{societyData?.sections[0]?.array.length !== 1 ? "s" : ""}
@@ -323,7 +338,7 @@ const Detail = () => {
                       {societyData?.sections[0]?.array.map((event, index) => (
                         <table
                           key={index}
-                          className="table table-striped d-none mb-0 d-lg-table"
+                          className="table table-striped mb-0"
                         >
                           <tbody>
                             <tr
@@ -436,10 +451,11 @@ const Detail = () => {
 
                 <div className="card collapse_section">
                   <h5
-                    className="card-header bg-dark text-light pointer collapse_title active"
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.about ? "active" : ""}`}
                     data-toggle="collapse"
                     data-target="#about_table"
-                    aria-expanded="true"
+                    aria-expanded={expandedSections.about}
+                    onClick={() => toggleSection("about")}
                   >
                     <i className="fa fa-lg mr-3"></i>
                     About {societyData?.name}
@@ -480,9 +496,11 @@ const Detail = () => {
 
                 <div className="card mt-3 collapse_section">
                   <h5
-                    className="card-header bg-dark text-light pointer collapse_title"
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.committee ? "active" : ""}`}
                     data-toggle="collapse"
                     data-target="#committee_table"
+                    aria-expanded={expandedSections.committee}
+                    onClick={() => toggleSection("committee")}
                   >
                     <i className="fa fa-lg mr-3"></i>
                     Current Committee

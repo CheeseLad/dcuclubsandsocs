@@ -103,10 +103,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-    </div><footer
-      className="footer-social-icon text-center section_padding_100_50 clearfix"
-      style={{zIndex: -101, position: 'fixed', bottom: 0, width: '2048px'}}
-    >
+    </div><footer className="footer-social-icon text-center section_padding_100_50 clearfix">
         <div className="footer-text">
           <h3>
             <a
@@ -219,7 +216,7 @@ const Footer = () => {
         <div className="copyright-text">
           <p>Copyright ©2026. All Rights Reserved</p>
 
-          <div className="d-block text-center mt-4">
+          <div className="d-block text-center mt-4 px-4">
             <a
               href="https://campus.hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541"
               target="_blank"

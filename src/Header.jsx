@@ -101,7 +101,7 @@ const Header = () => {
                     style={{ maxHeight: "939px" }}
                   >
                     <ul className="navbar-nav nav-mini">
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <a
                           className="nav-link"
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/about"
@@ -109,7 +109,7 @@ const Header = () => {
                           <i className="fa fa-fw fa-info-circle mr-2"></i> About
                           / Links
                         </a>
-                      </li>
+                      </li>*/}
 
 
                       <li className="nav-item">
@@ -122,7 +122,7 @@ const Header = () => {
                         </a>
                       </li>
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <a
                           className="nav-link"
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/whatson"
@@ -152,7 +152,7 @@ const Header = () => {
                           <i className="fa fa-fw fa-sign-in-alt mr-2"></i> Log
                           In / Register
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
 
                     <ul className="navbar-nav nav-mega ml-auto">
