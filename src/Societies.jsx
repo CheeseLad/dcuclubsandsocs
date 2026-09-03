@@ -9,17 +9,17 @@ const Societies = () => {
 
     // Organize the internal JSON details object
     const detailsPayload = {
-      firstCall:true,
+      firstCall: true,
       sortType: "itemName",
       desiredType: "societies",
       state: "Leinster",
       country: "IE",
       universityid: 541,
-      limit:1000,
-      offset:0,
-      sortDirection:"asc",
-      searchQuery:"",
-      eventsPeriodFilter:"All",
+      limit: 1000,
+      offset: 0,
+      sortDirection: "asc",
+      searchQuery: "",
+      eventsPeriodFilter: "All",
       domain: "campus.hellorubric.com",
       currentUrl: `https://hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541`,
       device: "web_portal",
@@ -64,7 +64,10 @@ const Societies = () => {
     <div
       id="pagemain"
       className="bg-white "
-      style={{boxShadow: "rgba(0, 0, 0, 0.3) 0px 20px 30px -20px", marginBottom: "516.4px"}}
+      style={{
+        boxShadow: "rgba(0, 0, 0, 0.3) 0px 20px 30px -20px",
+        marginBottom: "516.4px",
+      }}
     >
       <div id="pagecover"></div>
 
@@ -197,73 +200,95 @@ const Societies = () => {
 
             <div className="row">
               {societyList.map((society) => (
-              <div
-                className="cs_profile col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 mx-auto"
-                data-type="204"
-                key={society.societyid}
-              >
-                <div className="card">
-                  <a href={`/society/${society.societyid}`}>
-                    <div className="card-header text-center pb-0">
-                      <h3 className="card-title">{society.title}</h3>
+                <div
+                  className="cs_profile col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 mx-auto"
+                  data-type="204"
+                  key={society.societyid}
+                >
+                  <div className="card">
+                    <a href={`/society/${society.societyid}`}>
+                      <div className="card-header text-center pb-0">
+                        <h3 className="card-title">{society.title}</h3>
+                      </div>
+                    </a>
+
+                    <a
+                      className="card-img-container"
+                      href={`/society/${society.societyid}`}
+                    >
+                      <img
+                        className="card-img-top"
+                        src={society.image}
+                        alt=""
+                      />
+                    </a>
+
+                    <a href={`/society/${society.societyid}`}>
+                      <div className="card-body px-2 pb-2 text-center">
+                        <h4></h4>
+                        <p className="card-text">
+                          <em>{society.name}</em>
+                        </p>
+                      </div>
+                    </a>
+                    <div className="card-footer text-center">
+                      {society.instagramurl && (
+                        <a
+                          href={society.instagramurl}
+                          className="text-dark"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i className="fab fa-instagram fa-2x fa-fw"></i>
+                        </a>
+                      )}
+
+                      {society.discordurl && (
+                        <a
+                          href={society.discordurl}
+                          className="text-dark"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i className="fab fa-discord fa-2x fa-fw"></i>
+                        </a>
+                      )}
+
+                      {society.facebookurl && (
+                        <a
+                          href={society.facebookurl}
+                          className="text-dark"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i className="fab fa-facebook fa-2x fa-fw"></i>
+                        </a>
+                      )}
+
+                      {society.tiktokurl && (
+                        <a
+                          href={society.tiktokurl}
+                          className="text-dark"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i className="fab fa-tiktok fa-2x fa-fw"></i>
+                        </a>
+                      )}
+
+                      {society.linkedinurl && (
+                        <a
+                          href={society.linkedInurl}
+                          className="text-dark"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          <i className="fab fa-linkedin fa-2x fa-fw"></i>
+                        </a>
+                      )}
                     </div>
-                  </a>
-
-                  <a
-                    className="card-img-container"
-                    href={`/society/${society.societyid}`}
-                  >
-                    <img
-                      className="card-img-top"
-                      src={society.image}
-                      alt=""
-                    />
-                  </a>
-
-                  <a href={`/society/${society.societyid}`}>
-                    <div className="card-body px-2 pb-2 text-center">
-                      <h4></h4>
-                      <p className="card-text">
-                        <em>{society.name}</em>
-                      </p>
-                    </div>
-                  </a>
-                  <div className="card-footer text-center">
-                    {society.instagramurl && (
-                    <a
-                      href={society.instagramurl}
-                      className="text-dark"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <i className="fab fa-instagram fa-2x fa-fw"></i>
-                    </a>
-                    )}
-
-                                        {society.discordurl && (
-                    <a
-                      href={society.discordurl}
-                      className="text-dark"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <i className="fab fa-discord fa-2x fa-fw"></i>
-                    </a>
-                    )}
-
-                                                            {society.facebookurl && (
-                    <a
-                      href={society.facebookurl}
-                      className="text-dark"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <i className="fab fa-facebook fa-2x fa-fw"></i>
-                    </a>
-                    )}
                   </div>
                 </div>
-              </div>
               ))}
             </div>
           </div>
