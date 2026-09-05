@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 const Societies = () => {
   const [societyList, setSocietyList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   async function fetchSocietyList() {
     const url = "https://api.hellorubric.com/";
@@ -60,6 +61,14 @@ const Societies = () => {
     fetchSocietyList();
   }, []);
 
+  const filteredSocieties = societyList.filter((society) => {
+    const query = searchQuery.trim().toLowerCase();
+
+    return [society.title, society.name]
+      .filter(Boolean)
+      .some((value) => value.toLowerCase().includes(query));
+  });
+
   return (
     <div
       id="pagemain"
@@ -87,6 +96,43 @@ const Societies = () => {
 
       <section className="clearfix ">
         <div className="px-3 pb-5 h-100">
+          <div className="alert alert-dark text-center pb-0 pt-2 mb-5">
+            <h5>Search Societies</h5>
+
+            <div className="contact_from">
+              <form
+                method="post"
+                id="contact-form"
+                onSubmit={(event) => event.preventDefault()}
+              >
+                <div className="contact_input_area">
+                  <div className="row justify-content-center">
+                    <div className="col-12 col-md-8 col-lg-6">
+                      <div className="form-group mb-2">
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="search"
+                          id="societySearchInput"
+                          placeholder="Search societies..."
+                          value={searchQuery}
+                          onChange={(event) => setSearchQuery(event.target.value)}
+                          aria-label="Search societies"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <button
+              type="button"
+              className="filter_cs btn btn-dark btn-sm mb-2 ml-3"
+              onClick={() => setSearchQuery("")}
+            >
+              Clear Search
+            </button>
+          </div>
           <div className="row">
             {/*<div className="col-12 mb-5 mt-0 app-download-area">
               <div className="app-download-btn active">
@@ -198,10 +244,12 @@ const Societies = () => {
               No matches found, try resetting the filter above
             </h3>*/}
 
-            <div className="row">
-              {societyList.map((society) => (
+            <div className="row justify-content-center">
+              {filteredSocieties.map((society) => (
                 <div
-                  className="cs_profile col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 mx-auto"
+                  className={`cs_profile col-12 col-sm-6 col-lg-4 ${
+                    filteredSocieties.length === 1 ? "col-xl-12" : "col-xl-3"
+                  } mb-4`}
                   data-type="204"
                   key={society.societyid}
                 >

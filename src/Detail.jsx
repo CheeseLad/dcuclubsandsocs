@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router'
+import { useParams } from "react-router";
 
 const Detail = () => {
-
-  const { id } = useParams()
+  const { id } = useParams();
 
   const [societyData, setSocietyData] = useState(null);
   const [eventDetails, setEventDetails] = useState({});
@@ -12,7 +11,19 @@ const Detail = () => {
     events: true,
     about: true,
     committee: false,
+    merchandise: false,
   });
+  const [expandedMerchandise, setExpandedMerchandise] = useState({});
+  const merchandiseSection = societyData?.sections?.find(
+    (section) => section.sectionname === "Merchandise",
+  );
+
+  const toggleMerchandiseInfo = (merchandiseId) => {
+    setExpandedMerchandise((currentMerchandise) => ({
+      ...currentMerchandise,
+      [merchandiseId]: !currentMerchandise[merchandiseId],
+    }));
+  };
 
   const toggleSection = (section) => {
     setExpandedSections((currentSections) => ({
@@ -75,13 +86,14 @@ const Detail = () => {
       version: 4,
       timestamp: Date.now(), // Dynamically uses the current exact time
     };
-    
+
     // Build application/x-www-form-urlencoded format
     const formBody = new URLSearchParams({
       details: JSON.stringify(detailsPayload),
-      endpoint: "https://appserver.getqpay.com:9090/AppServerSwapnil/event/details",
+      endpoint:
+        "https://appserver.getqpay.com:9090/AppServerSwapnil/event/details",
     });
-    
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -91,7 +103,7 @@ const Detail = () => {
         },
         body: formBody,
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -103,12 +115,10 @@ const Detail = () => {
         [eventId]: data.eventDetails,
       }));
       return data;
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Failed to fetch event details:", error);
     }
   }
-
 
   useEffect(() => {
     if (!id) return;
@@ -325,7 +335,8 @@ const Detail = () => {
                     onClick={() => toggleSection("events")}
                   >
                     <i className="fa fa-lg mr-3"></i>
-                    Upcoming Event{societyData?.sections[0]?.array.length !== 1 ? "s" : ""}
+                    Upcoming Event
+                    {societyData?.sections[0]?.array.length !== 1 ? "s" : ""}
                     <span className="float-right badge badge-light">
                       {societyData?.sections[0]?.array.length}
                     </span>
@@ -337,7 +348,7 @@ const Detail = () => {
                     <div className="table-responsive">
                       {societyData?.sections[0]?.array.map((event, index) => (
                         <table
-                          key={index}
+                          key={event.eventid ?? index}
                           className="table table-striped mb-0"
                         >
                           <tbody>
@@ -382,7 +393,12 @@ const Detail = () => {
                                 <b>€&nbsp;{event.info}</b>
                               </td>
                               <td className="text-center align-middle">
-                                <button className="btn btn-info py-1" onClick={() => fetchEventDetails(event.eventid, id)}>
+                                <button
+                                  className="btn btn-info py-1"
+                                  onClick={() =>
+                                    fetchEventDetails(event.eventid, id)
+                                  }
+                                >
                                   <i className="fa fa-info-circle mr-1"></i>
                                   <br />
                                   INFO
@@ -391,55 +407,86 @@ const Detail = () => {
                             </tr>
                             {eventDetails[event.eventid] && (
                               <>
-                                <tr className={`event_details_${event.eventid}`}>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
                                   <td colSpan="7" className="text-center"></td>
                                 </tr>
-                                <tr className={`event_details_${event.eventid}`}>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
                                   <td colSpan="7" className="break-all">
                                     <h5>
-                                      Location: <b>{eventDetails[event.eventid].eventAddress}</b>
+                                      Location:{" "}
+                                      <b>
+                                        {
+                                          eventDetails[event.eventid]
+                                            .eventAddress
+                                        }
+                                      </b>
                                     </h5>
                                     <hr />
                                     <p
                                       dangerouslySetInnerHTML={{
-                                        __html: eventDetails[event.eventid].eventDescription,
+                                        __html:
+                                          eventDetails[event.eventid]
+                                            .eventDescription,
                                       }}
                                     />
                                   </td>
                                 </tr>
-                                <tr className={`event_details_${event.eventid}`}>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
                                   <td colSpan="7" className="text-center"></td>
                                 </tr>
-                                <tr className={`event_details_${event.eventid}`}>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
                                   <td colSpan="7" className="break-all">
-                                    <h5>
-                                      Details:
-                                    </h5>
+                                    <h5>Details:</h5>
                                     <hr />
                                     <table>
                                       <tbody>
-                                        <tr className={`event_details_${event.eventid}`}>
+                                        <tr
+                                          className={`event_details_${event.eventid}`}
+                                        >
                                           <td className="text-center align-middle">
-                                            <i className="fa fa-users"></i>&nbsp;Max:
+                                            <i className="fa fa-users"></i>
+                                            &nbsp;Max:
                                             <br />
-                                            <b>{eventDetails[event.eventid].maxTickets}</b>
+                                            <b>
+                                              {
+                                                eventDetails[event.eventid]
+                                                  .maxTickets
+                                              }
+                                            </b>
                                           </td>
                                           <td className="text-center align-middle">
                                             Starts:
                                             <br />
-                                            <b>{eventDetails[event.eventid].eventTime}</b>
+                                            <b>
+                                              {
+                                                eventDetails[event.eventid]
+                                                  .eventTime
+                                              }
+                                            </b>
                                           </td>
                                           <td className="text-center align-middle">
                                             Ends:
                                             <br />
-                                            <b>{eventDetails[event.eventid].eventEndTime}</b>
+                                            <b>
+                                              {
+                                                eventDetails[event.eventid]
+                                                  .eventEndTime
+                                              }
+                                            </b>
                                           </td>
                                         </tr>
                                       </tbody>
                                     </table>
                                   </td>
                                 </tr>
-                                
                               </>
                             )}
                           </tbody>
@@ -469,26 +516,21 @@ const Detail = () => {
                     <div className="card-footer">
                       <div className="row">
                         <div className="col-12">
-                          <a
-                            className="mr-3"
-                          >
+                          <a className="mr-3">
                             University — {societyData?.uniname}
                           </a>
                         </div>
                         <div className="col-12">
-                          <a
-                            className="mr-3"
-                          >
+                          <a className="mr-3">
                             Category — {societyData?.club_type}
                           </a>
                         </div>
                         <div className="col-12">
-                          <a
-                            className="mr-3"
-                          >
-                            On Rubric since — {societyData?.society_created_date}
+                          <a className="mr-3">
+                            On Rubric since —{" "}
+                            {societyData?.society_created_date}
                           </a>
-                        </div>                                                
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -517,11 +559,117 @@ const Detail = () => {
                         {societyData?.sections[3].array.map((member, index) => (
                           <tr key={index}>
                             <th>{member.subtitle}</th>
-                            <td>{member.title.replace(/[0-9]/g, '').trim()}</td>
+                            <td>{member.title.replace(/[0-9]/g, "").trim()}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+
+                <div className="card mt-3 collapse_section" id="merchandise">
+                  <h5
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.merchandise ? "active" : ""}`}
+                    aria-expanded={expandedSections.merchandise}
+                    onClick={() => toggleSection("merchandise")}
+                  >
+                    <i className="fa fa-lg mr-3"></i>
+                    Merchandise
+                    <span className="float-right badge badge-light">
+                      {merchandiseSection?.array?.length ?? 0}
+                    </span>
+                  </h5>
+                  <div
+                    className={`card-body p-0 collapse ${expandedSections.merchandise ? "show" : ""}`}
+                    id="merchandise_table"
+                  >
+                    <div className="table-responsive">
+                      {merchandiseSection?.array?.map((merchandise, index) => (
+                          <table
+                            key={index}
+                            className="table table-striped mb-0"
+                          >
+                            <tbody>
+                              <tr
+                                className="show_info pointer"
+                                data-id={merchandise.id}
+                                data-type="merchandise"
+                              >
+                                <td
+                                  className="text-center align-top p-0"
+                                  id="merchandise_img_644"
+                                  rowSpan="2"
+                                  style={{ minWidth: "150px", width: "150px" }}
+                                >
+                                  <a
+                                    href={merchandise.image}
+                                    className="lightbox"
+                                  >
+                                    <img
+                                      className="img-thumbnail"
+                                      src={merchandise.image}
+                                      style={{ width: "150px" }}
+                                    />
+                                  </a>
+                                </td>
+                                <th colSpan="7" className="h5 align-middle">
+                                  <i className="fa fa-calendar-day mr-3"></i>
+                                  {merchandise.title}{" "}
+                                </th>
+                              </tr>
+                              <tr
+                                className="show_info pointer"
+                                data-id={merchandise.id}
+                                data-type="merchandise"
+                              >
+                                <td className="text-center align-middle"></td>
+                                <td className="text-center align-middle">
+                                  Cost:
+                                  <br />
+                                  <b>{merchandise.info}</b>
+                                </td>
+                                <td className="text-center align-middle">
+                                  <button
+                                    className="btn btn-info py-1"
+                                    onClick={() => toggleMerchandiseInfo(index)}
+                                  >
+                                    <i className="fa fa-info-circle mr-1"></i>
+                                    <br />
+                                    INFO
+                                  </button>
+                                </td>
+
+                                <td className="text-left align-middle">
+                                  <a
+                                    href={merchandise.destination}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <button className="btn btn-success py-1">
+                                      <i className="fa fa-shopping-cart mr-1"></i>
+                                      <br />
+                                      BUY
+                                    </button>
+                                  </a>
+                                </td>
+                              </tr>
+                              {expandedMerchandise[index] && (
+                                <tr
+                                  className={`merchandise_info_${merchandise.id}`}
+                                >
+                                  <td colSpan="7" className="break-all">
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: merchandise.subtitle,
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
