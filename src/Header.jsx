@@ -300,7 +300,7 @@ const Header = () => {
                             <li className="container">
                               <div className="col-12 text-center">
                                 <a
-                                  href="societies"
+                                  href="/societies"
                                   className="dropdown-item dropdown-header"
                                 >
                                   Go to ALL SOCIETIES page »
