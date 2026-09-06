@@ -19,8 +19,8 @@ const Header = () => {
       sortDirection:"asc",
       searchQuery:"",
       eventsPeriodFilter:"All",
-      domain: "campus.hellorubric.com",
-      currentUrl: `https://hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541`,
+      domain: "dcustudentlife.hellorubric.com",
+      currentUrl: `https://dcustudentlife.hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541`,
       device: "web_portal",
       version: 4,
       timestamp: Date.now(), // Dynamically uses the current exact time
@@ -300,7 +300,7 @@ const Header = () => {
                             <li className="container">
                               <div className="col-12 text-center">
                                 <a
-                                  href="societies"
+                                  href="/societies"
                                   className="dropdown-item dropdown-header"
                                 >
                                   Go to ALL SOCIETIES page »
