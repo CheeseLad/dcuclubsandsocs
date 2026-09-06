@@ -116,7 +116,9 @@ const Societies = () => {
                           id="societySearchInput"
                           placeholder="Search societies..."
                           value={searchQuery}
-                          onChange={(event) => setSearchQuery(event.target.value)}
+                          onChange={(event) =>
+                            setSearchQuery(event.target.value)
+                          }
                           aria-label="Search societies"
                         />
                       </div>
@@ -244,7 +246,7 @@ const Societies = () => {
               No matches found, try resetting the filter above
             </h3>*/}
 
-            <div className="row justify-content-center">
+            <div className="row justify-content-center px-3">
               {filteredSocieties.map((society) => (
                 <div
                   className={`cs_profile col-12 col-sm-6 col-lg-4 ${

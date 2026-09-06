@@ -12,6 +12,7 @@ const Detail = () => {
     about: true,
     committee: false,
     merchandise: false,
+    memberships: true,
   });
   const [expandedMerchandise, setExpandedMerchandise] = useState({});
   const merchandiseSection = societyData?.sections?.find(
@@ -22,6 +23,18 @@ const Detail = () => {
     setExpandedMerchandise((currentMerchandise) => ({
       ...currentMerchandise,
       [merchandiseId]: !currentMerchandise[merchandiseId],
+    }));
+  };
+
+  const [expandedMemberships, setExpandedMemberships] = useState({});
+  const membershipsSection = societyData?.sections?.find(
+    (section) => section.sectionname === "Memberships",
+  );
+
+  const toggleMembershipInfo = (membershipId) => {
+    setExpandedMemberships((currentMemberships) => ({
+      ...currentMemberships,
+      [membershipId]: !currentMemberships[membershipId],
     }));
   };
 
@@ -567,9 +580,124 @@ const Detail = () => {
                   </div>
                 </div>
 
+                <div className="card mt-3 collapse_section" id="memberships">
+                  <h5
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.memberships ? "active" : ""}`}
+                    data-toggle="collapse"
+                    data-target="#memberships_table"
+                    aria-expanded={expandedSections.memberships}
+                    onClick={() => toggleSection("memberships")}
+                  >
+                    <i className="fa fa-lg mr-3"></i>
+                    Memberships
+                    <span className="float-right badge badge-light">
+                      {membershipsSection?.array?.length ?? 0}
+                    </span>
+                  </h5>
+                  <div
+                    className={`card-body p-0 collapse ${expandedSections.memberships ? "show" : ""}`}
+                    id="memberships_table"
+                  >
+                    <div className="table-responsive">
+                      {membershipsSection?.array?.map((membership, index) => (
+                          <table
+                            key={index}
+                            className="table table-striped mb-0"
+                          >
+                            <tbody>
+                              <tr
+                                className="show_info pointer"
+                                data-id={membership.typeid}
+                                data-type="membership"
+                              >
+                                <td
+                                  className="text-center align-top p-0"
+                                  id="membership_img_644"
+                                  rowSpan="2"
+                                  style={{ minWidth: "150px", width: "150px" }}
+                                >
+                                  <a
+                                    href={membership.image}
+                                    className="lightbox"
+                                  >
+                                    <img
+                                      className="img-thumbnail"
+                                      src={membership.image}
+                                      style={{ width: "150px" }}
+                                    />
+                                  </a>
+                                </td>
+                                <th colSpan="7" className="h5 align-middle">
+                                  <i className="fa fa-calendar-day mr-3"></i>
+                                  {membership.title}{" "}
+                                </th>
+                              </tr>
+                              <tr
+                                className="show_info pointer"
+                                data-id={membership.id}
+                                data-type="membership"
+                              >
+                                <td className="text-center align-middle"></td>
+                                                                <td className="text-center align-middle">
+                                  Expires:
+                                  <br />
+                                  <b>{membership.subtitle}</b>
+                                </td>
+                                <td className="text-center align-middle">
+                                  Cost:
+                                  <br />
+                                  <b>{membership.info}</b>
+                                </td>
+                                <td className="text-center align-middle">
+                                  <button
+                                    className="btn btn-info py-1"
+                                    onClick={() => toggleMembershipInfo(index)}
+                                  >
+                                    <i className="fa fa-info-circle mr-1"></i>
+                                    <br />
+                                    INFO
+                                  </button>
+                                </td>
+
+                                <td className="text-left align-middle">
+                                  <a
+                                    href={membership.destination}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <button className="btn btn-success py-1">
+                                      <i className="fa fa-shopping-cart mr-1"></i>
+                                      <br />
+                                      SIGN UP
+                                    </button>
+                                  </a>
+                                </td>
+                              </tr>
+                              {expandedMemberships[index] && (
+                                <tr
+                                  className={`membership_info_${membership.typeid}`}
+                                >
+                                  <td colSpan="7" className="break-all">
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: membership.description,
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
                 <div className="card mt-3 collapse_section" id="merchandise">
                   <h5
                     className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.merchandise ? "active" : ""}`}
+                    data-toggle="collapse"
+                    data-target="#merchandise_table"
                     aria-expanded={expandedSections.merchandise}
                     onClick={() => toggleSection("merchandise")}
                   >
