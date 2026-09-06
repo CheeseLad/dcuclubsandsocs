@@ -51,8 +51,8 @@ const Detail = () => {
     // Organize the internal JSON details object
     const detailsPayload = {
       societyid: societyId,
-      domain: "campus.hellorubric.com",
-      currentUrl: `https://hellorubric.com{societyId}`,
+      domain: "dcustudentlife.hellorubric.com",
+      currentUrl: `https://dcustudentlife.hellorubric.com{societyId}`,
       device: "web_portal",
       version: 4,
       timestamp: Date.now(), // Dynamically uses the current exact time
@@ -94,7 +94,7 @@ const Detail = () => {
     // Organize the internal JSON details object
     const detailsPayload = {
       eventId: eventId.toString(),
-      currentUrl: `https://hellorubric.com{societyId}`,
+      currentUrl: `https://dcustudentlife.hellorubric.com{societyId}`,
       device: "web_portal",
       version: 4,
       timestamp: Date.now(), // Dynamically uses the current exact time

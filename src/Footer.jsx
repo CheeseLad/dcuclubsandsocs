@@ -218,7 +218,7 @@ const Footer = () => {
 
           <div className="d-block text-center mt-4 px-4">
             <a
-              href="https://campus.hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541"
+              href="https://dcustudentlife.hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541"
               target="_blank"
               className="btn btn-warning btn-sm px-3"
               //data-toggle="modal"

@@ -11,6 +11,7 @@ import Header from './Header'
 import Detail from './Detail'
 import Footer from './Footer'
 import Societies from './Societies'
+//import WhatsOn from './WhatsOn'
 
 function Layout() {
   return (
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/" element={<Societies />} />
           <Route path="/society/:id" element={<Detail />} />
           <Route path="/societies" element={<Societies />} />
+          {/* <Route path="/whatson" element={<WhatsOn />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
