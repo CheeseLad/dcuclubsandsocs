@@ -30,8 +30,8 @@ function Home() {
             </div>
           </div>
         </div>
-        <div class="welcome-border">
-            <img src="/wave.png" class="img-full w-100" alt="---"/>
+        <div className="welcome-border">
+            <img src="/wave.png" className="img-full w-100" alt="---"/>
         </div>
       </section>
 
