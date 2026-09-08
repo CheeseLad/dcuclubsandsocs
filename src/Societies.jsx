@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 const Societies = () => {
   const [societyList, setSocietyList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [societyTypes, setSocietyTypes] = useState([]);
+  const [filterClubType, setFilterClubType] = useState("");
 
-  async function fetchSocietyList() {
+  async function fetchSocietyList(clubType = "") {
     const url = "https://api.hellorubric.com/";
 
     // Organize the internal JSON details object
@@ -20,6 +22,7 @@ const Societies = () => {
       offset: 0,
       sortDirection: "asc",
       searchQuery: "",
+      filterClubType: clubType,
       eventsPeriodFilter: "All",
       domain: "dcustudentlife.hellorubric.com",
       currentUrl: `https://dcustudentlife.hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541`,
@@ -51,6 +54,7 @@ const Societies = () => {
       const data = await response.json();
       //console.log("Society List Received:", data.results);
       setSocietyList(data.results);
+      setSocietyTypes(data.society_club_types);
       return data;
     } catch (error) {
       console.error("Failed to fetch society landing page:", error);
@@ -58,8 +62,8 @@ const Societies = () => {
   }
 
   useEffect(() => {
-    fetchSocietyList();
-  }, []);
+    fetchSocietyList(filterClubType);
+  }, [filterClubType]);
 
   const filteredSocieties = societyList.filter((society) => {
     const query = searchQuery.trim().toLowerCase();
@@ -89,6 +93,12 @@ const Societies = () => {
               <h2>Societies</h2>
 
               <div className="line-shape"></div>
+
+              <div className="col-12 text-center">
+                <h2 className="my-4">
+                  <i><h4 className="card-title">Showing {filteredSocieties.length} {filteredSocieties.length === 1 ? 'Society' : 'Societies'}</h4></i>
+                </h2>
+              </div>
             </div>
           </div>
         </div>
@@ -161,81 +171,38 @@ const Societies = () => {
                   </p>
                 </a>
               </div>
-            </div>
+            </div>*/}
 
-            <div className="alert alert-dark text-center pb-0 pt-2 mb-5">
+            <div className="alert alert-dark text-center pb-0 pt-2 mb-5 mx-3">
               <h5>Filter by Societies Type</h5>
               <button
-                className="filter_cs btn btn-light btn-dark mb-2"
-                data-type="ALL"
+                className={`filter_cs btn mb-2 mr-2 ${
+                  filterClubType === "" ? "btn-dark" : "btn-light"
+                }`}
+                onClick={() => setFilterClubType("")}
+                aria-pressed={filterClubType === ""}
               >
-                ALL (
-                <span className="filter_count" data-type="ALL" data-val="92">
-                  92
-                </span>
-                )
+                Show All
               </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="201">
-                Academic (
-                <span className="filter_count" data-type="201" data-val="21">
-                  21
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="208">
-                Charitable (
-                <span className="filter_count" data-type="208" data-val="3">
-                  3
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="204">
-                Civic/Social/Cultural (
-                <span className="filter_count" data-type="204" data-val="20">
-                  20
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="205">
-                Faith (
-                <span className="filter_count" data-type="205" data-val="5">
-                  5
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="206">
-                Interest/Hobby (
-                <span className="filter_count" data-type="206" data-val="26">
-                  26
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="207">
-                Lifestyle (
-                <span className="filter_count" data-type="207" data-val="4">
-                  4
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="203">
-                Performance (
-                <span className="filter_count" data-type="203" data-val="9">
-                  9
-                </span>
-                )
-              </button>
-              <button className="filter_cs btn btn-light mb-2" data-type="202">
-                Political (
-                <span className="filter_count" data-type="202" data-val="4">
-                  4
-                </span>
-                )
-              </button>
+              {societyTypes.map((type, index) => (
+                <button
+                  className={`filter_cs btn mb-2 mr-2 ${
+                    filterClubType === type ? "btn-dark" : "btn-light"
+                  }`}
+                  key={index}
+                  data-type={type}
+                  onClick={() => setFilterClubType(type)}
+                  aria-pressed={filterClubType === type}
+                >
+                  {type}
+                </button>
+              ))}
+
               <button
                 className="filter_cs btn btn-dark btn-warning btn-sm mb-2 ml-3"
-                data-type="ALL"
+                onClick={() => setFilterClubType("")}
               >
-                reset types
+                Reset Types
               </button>
             </div>
 
@@ -244,7 +211,7 @@ const Societies = () => {
               className="alert alert-warning text-center mb-5 py-5 d-none"
             >
               No matches found, try resetting the filter above
-            </h3>*/}
+            </h3>
 
             <div className="row justify-content-center px-3">
               {filteredSocieties.map((society) => (
