@@ -2,25 +2,48 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 const Societies = () => {
+  const sortOptions = [
+    {
+      label: "Name A-Z",
+      sortDirection: "asc",
+      sortType: "itemName",
+    },
+    {
+      label: "Name Z-A",
+      sortDirection: "desc",
+      sortType: "itemName",
+    },
+    {
+      label: "Newest",
+      sortDirection: "desc",
+      sortType: "date",
+    },
+    {
+      label: "Oldest",
+      sortDirection: "asc",
+      sortType: "date",
+    },
+  ];
   const [societyList, setSocietyList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [societyTypes, setSocietyTypes] = useState([]);
   const [filterClubType, setFilterClubType] = useState("");
+  const [sortBy, setSortBy] = useState(sortOptions[0]);
 
-  async function fetchSocietyList(clubType = "") {
+  async function fetchSocietyList(clubType = "", sortOption = sortOptions[0]) {
     const url = "https://api.hellorubric.com/";
 
     // Organize the internal JSON details object
     const detailsPayload = {
       firstCall: true,
-      sortType: "itemName",
+      sortType: sortOption?.sortType || "itemName",
       desiredType: "societies",
       state: "Leinster",
       country: "IE",
       universityid: 541,
       limit: 1000,
       offset: 0,
-      sortDirection: "asc",
+      sortDirection: sortOption?.sortDirection || "asc",
       searchQuery: "",
       filterClubType: clubType,
       eventsPeriodFilter: "All",
@@ -52,7 +75,6 @@ const Societies = () => {
       }
 
       const data = await response.json();
-      //console.log("Society List Received:", data.results);
       setSocietyList(data.results);
       setSocietyTypes(data.society_club_types);
       return data;
@@ -62,8 +84,8 @@ const Societies = () => {
   }
 
   useEffect(() => {
-    fetchSocietyList(filterClubType);
-  }, [filterClubType]);
+    fetchSocietyList(filterClubType, sortBy);
+  }, [filterClubType, sortBy]);
 
   const filteredSocieties = societyList.filter((society) => {
     const query = searchQuery.trim().toLowerCase();
@@ -96,7 +118,12 @@ const Societies = () => {
 
               <div className="col-12 text-center">
                 <h2 className="my-4">
-                  <i><h4 className="card-title">Showing {filteredSocieties.length} {filteredSocieties.length === 1 ? 'Society' : 'Societies'}</h4></i>
+                  <i>
+                    <h4 className="card-title">
+                      Showing {filteredSocieties.length}{" "}
+                      {filteredSocieties.length === 1 ? "Society" : "Societies"}
+                    </h4>
+                  </i>
                 </h2>
               </div>
             </div>
@@ -145,8 +172,7 @@ const Societies = () => {
               Clear Search
             </button>
           </div>
-          <div className="row">
-            {/*<div className="col-12 mb-5 mt-0 app-download-area">
+          {/*<div className="col-12 mb-5 mt-0 app-download-area">
               <div className="app-download-btn active">
                 <a href="https://web.archive.org/web/20260312171416/https://dcuclubsandsocs.ie/societies">
                   <i className="fa fa-th"></i>
@@ -173,141 +199,162 @@ const Societies = () => {
               </div>
             </div>*/}
 
-            <div className="alert alert-dark text-center pb-0 pt-2 mb-5 mx-3">
-              <h5>Filter by Societies Type</h5>
+          <div className="alert alert-dark text-center pb-0 pt-2 mb-5">
+            <h5>Sort By</h5>
+            {sortOptions.map((type, index) => (
               <button
                 className={`filter_cs btn mb-2 mr-2 ${
-                  filterClubType === "" ? "btn-dark" : "btn-light"
+                  sortBy?.label === type.label ? "btn-dark" : "btn-light"
                 }`}
-                onClick={() => setFilterClubType("")}
-                aria-pressed={filterClubType === ""}
+                key={index}
+                data-type={type.sortType}
+                onClick={() => setSortBy(type)}
+                aria-pressed={sortBy?.label === type.label}
               >
-                Show All
+                {type.label}
               </button>
-              {societyTypes.map((type, index) => (
-                <button
-                  className={`filter_cs btn mb-2 mr-2 ${
-                    filterClubType === type ? "btn-dark" : "btn-light"
-                  }`}
-                  key={index}
-                  data-type={type}
-                  onClick={() => setFilterClubType(type)}
-                  aria-pressed={filterClubType === type}
-                >
-                  {type}
-                </button>
-              ))}
+            ))}
 
-              <button
-                className="filter_cs btn btn-dark btn-warning btn-sm mb-2 ml-3"
-                onClick={() => setFilterClubType("")}
-              >
-                Reset Types
-              </button>
-            </div>
-
-            <h3
-              id="filter_no_match"
-              className="alert alert-warning text-center mb-5 py-5 d-none"
+            <button
+              className="filter_cs btn btn-dark btn-warning btn-sm mb-2 ml-3"
+              onClick={() => setSortBy(sortOptions[0])}
             >
-              No matches found, try resetting the filter above
-            </h3>
+              Reset Sort
+            </button>
+          </div>
 
-            <div className="row justify-content-center px-3">
-              {filteredSocieties.map((society) => (
-                <div
-                  className={`cs_profile col-12 col-sm-6 col-lg-4 ${
-                    filteredSocieties.length === 1 ? "col-xl-12" : "col-xl-3"
-                  } mb-4`}
-                  data-type="204"
-                  key={society.societyid}
-                >
-                  <div className="card">
-                    <a href={`/society/${society.societyid}`}>
-                      <div className="card-header text-center pb-0">
-                        <h3 className="card-title">{society.title}</h3>
-                      </div>
-                    </a>
+          <div className="alert alert-dark text-center pb-0 pt-2 mb-5">
+            <h5>Filter by Societies Type</h5>
+            <button
+              className={`filter_cs btn mb-2 mr-2 ${
+                filterClubType === "" ? "btn-dark" : "btn-light"
+              }`}
+              onClick={() => setFilterClubType("")}
+              aria-pressed={filterClubType === ""}
+            >
+              Show All
+            </button>
+            {societyTypes.map((type, index) => (
+              <button
+                className={`filter_cs btn mb-2 mr-2 ${
+                  filterClubType === type ? "btn-dark" : "btn-light"
+                }`}
+                key={index}
+                data-type={type}
+                onClick={() => setFilterClubType(type)}
+                aria-pressed={filterClubType === type}
+              >
+                {type}
+              </button>
+            ))}
 
-                    <a
-                      className="card-img-container"
-                      href={`/society/${society.societyid}`}
-                    >
-                      <img
-                        className="card-img-top"
-                        src={society.image}
-                        alt=""
-                      />
-                    </a>
+            <button
+              className="filter_cs btn btn-dark btn-warning btn-sm mb-2 ml-3"
+              onClick={() => setFilterClubType("")}
+            >
+              Reset Types
+            </button>
+          </div>
 
-                    <a href={`/society/${society.societyid}`}>
-                      <div className="card-body px-2 pb-2 text-center">
-                        <h4></h4>
-                        <p className="card-text">
-                          <em>{society.name}</em>
-                        </p>
-                      </div>
-                    </a>
-                    <div className="card-footer text-center">
-                      {society.instagramurl && (
-                        <a
-                          href={society.instagramurl}
-                          className="text-dark"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i className="fab fa-instagram fa-2x fa-fw"></i>
-                        </a>
-                      )}
+          <h3
+            id="filter_no_match"
+            className={`alert alert-warning text-center mb-5 py-5 ${
+              filteredSocieties.length > 0 ? "d-none" : ""
+            }`}
+          >
+            No matches found, try resetting the filter above
+          </h3>
 
-                      {society.discordurl && (
-                        <a
-                          href={society.discordurl}
-                          className="text-dark"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i className="fab fa-discord fa-2x fa-fw"></i>
-                        </a>
-                      )}
-
-                      {society.facebookurl && (
-                        <a
-                          href={society.facebookurl}
-                          className="text-dark"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i className="fab fa-facebook fa-2x fa-fw"></i>
-                        </a>
-                      )}
-
-                      {society.tiktokurl && (
-                        <a
-                          href={society.tiktokurl}
-                          className="text-dark"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i className="fab fa-tiktok fa-2x fa-fw"></i>
-                        </a>
-                      )}
-
-                      {society.linkedinurl && (
-                        <a
-                          href={society.linkedInurl}
-                          className="text-dark"
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          <i className="fab fa-linkedin fa-2x fa-fw"></i>
-                        </a>
-                      )}
+          <div className="row justify-content-center">
+            {filteredSocieties.map((society) => (
+              <div
+                className={`cs_profile col-12 col-sm-6 col-lg-4 ${
+                  filteredSocieties.length === 1 ? "col-xl-12" : "col-xl-3"
+                } mb-4`}
+                data-type="204"
+                key={society.societyid}
+              >
+                <div className="card">
+                  <a href={`/society/${society.societyid}`}>
+                    <div className="card-header text-center pb-0">
+                      <h3 className="card-title">{society.title}</h3>
                     </div>
+                  </a>
+
+                  <a
+                    className="card-img-container"
+                    href={`/society/${society.societyid}`}
+                  >
+                    <img className="card-img-top" src={society.image} alt="" />
+                  </a>
+
+                  <a href={`/society/${society.societyid}`}>
+                    <div className="card-body px-2 pb-2 text-center">
+                      <h4></h4>
+                      <p className="card-text">
+                        <em>{society.name}</em>
+                      </p>
+                    </div>
+                  </a>
+                  <div className="card-footer text-center">
+                    {society.instagramurl && (
+                      <a
+                        href={society.instagramurl}
+                        className="text-dark"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <i className="fab fa-instagram fa-2x fa-fw"></i>
+                      </a>
+                    )}
+
+                    {society.discordurl && (
+                      <a
+                        href={society.discordurl}
+                        className="text-dark"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <i className="fab fa-discord fa-2x fa-fw"></i>
+                      </a>
+                    )}
+
+                    {society.facebookurl && (
+                      <a
+                        href={society.facebookurl}
+                        className="text-dark"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <i className="fab fa-facebook fa-2x fa-fw"></i>
+                      </a>
+                    )}
+
+                    {society.tiktokurl && (
+                      <a
+                        href={society.tiktokurl}
+                        className="text-dark"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <i className="fab fa-tiktok fa-2x fa-fw"></i>
+                      </a>
+                    )}
+
+                    {society.linkedinurl && (
+                      <a
+                        href={society.linkedinurl}
+                        className="text-dark"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        <i className="fab fa-linkedin fa-2x fa-fw"></i>
+                      </a>
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
           <div className="clearfix"></div>
         </div>
