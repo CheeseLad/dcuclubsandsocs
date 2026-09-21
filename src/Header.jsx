@@ -8,17 +8,17 @@ const Header = () => {
 
     // Organize the internal JSON details object
     const detailsPayload = {
-      firstCall:true,
+      firstCall: true,
       sortType: "itemName",
       desiredType: "societies",
       state: "Leinster",
       country: "IE",
       universityid: 541,
-      limit:1000,
-      offset:0,
-      sortDirection:"asc",
-      searchQuery:"",
-      eventsPeriodFilter:"All",
+      limit: 1000,
+      offset: 0,
+      sortDirection: "asc",
+      searchQuery: "",
+      eventsPeriodFilter: "All",
       domain: "dcustudentlife.hellorubric.com",
       currentUrl: `https://dcustudentlife.hellorubric.com/search?type=societies&country=IE&state=Leinster&universityid=541`,
       device: "web_portal",
@@ -111,12 +111,15 @@ const Header = () => {
                         </a>
                       </li>*/}
 
+                                            <li className="nav-item">
+                        <a className="nav-link" href="/mysocieties">
+                          <i className="fa fa-fw fa-list-ul mr-2"></i> My Societies
+                        </a>
+                      </li>
+
 
                       <li className="nav-item">
-                        <a
-                          className="nav-link"
-                          href="/societies"
-                        >
+                        <a className="nav-link" href="/societies">
                           <i className="fa fa-fw fa-list-ul mr-2"></i> Societies
                           List
                         </a>
@@ -157,128 +160,13 @@ const Header = () => {
 
                     <ul className="navbar-nav nav-mega ml-auto">
                       <li className="nav-item">
-                        {/*<div className="dropdown">
-                          <a
-                            href="#"
-                            className="nav-link"
-                            id="dropdownMenuAbout"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i className="fa fa-sm fa-info-circle mr-2"></i>
-                            About
+                        <div>
+                          <a href="/mysocieties" className="nav-link">
+                            <i className="fa fa-sm fa-star mr-2"></i>My
+                            Societies
                           </a>
-                          <ul
-                            className="dropdown-menu mega-menu"
-                            aria-labelledby="dropdownMenuAbout"
-                          >
-                            <li className="container">
-                              <div className="row">
-                                <div className="col-12 col-sm-4 text-center">
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/about"
-                                    className="dropdown-item dropdown-header text-uppercase"
-                                  >
-                                    ABOUT DCU
-                                  </a>
-
-                                  <hr className="mt-2" />
-
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/about/awards"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    className="dropdown-item"
-                                    data-original-title="Awards Roll of Honour"
-                                  >
-                                    Awards Roll of Honour&nbsp;»
-                                  </a>
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/about/rooms"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    className="dropdown-item"
-                                    data-original-title="Rooms Availabilities"
-                                  >
-                                    Rooms Availabilities&nbsp;»
-                                  </a>
-                                </div>
-
-                                <div className="col-12 col-sm-4 text-center">
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/about"
-                                    className="dropdown-item dropdown-header text-uppercase"
-                                  >
-                                    &nbsp;
-                                  </a>
-
-                                  <hr className="mt-2" />
-                                </div>
-
-                                <div className="col-12 col-sm-4 text-center">
-                                  <button
-                                    disabled="disabled"
-                                    className="dropdown-item dropdown-header text-uppercase"
-                                  >
-                                    EXTERNAL LINKS
-                                  </button>
-
-                                  <hr className="mt-2" />
-
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/https://dcustudentlife.ie/"
-                                    target="_blank"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    rel="noopener"
-                                    className="dropdown-item"
-                                    data-original-title="DCU Student Life"
-                                  >
-                                    DCU Student Life&nbsp;»
-                                  </a>
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/http://www.dcu.ie/"
-                                    target="_blank"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    rel="noopener"
-                                    className="dropdown-item"
-                                    data-original-title="Dublin City University"
-                                  >
-                                    Dublin City University&nbsp;»
-                                  </a>
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/http://bics.ie/"
-                                    target="_blank"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    rel="noopener"
-                                    className="dropdown-item"
-                                    data-original-title="BICS (College Societies)"
-                                  >
-                                    BICS
-                                    <small>(College Societies)</small>&nbsp;»
-                                  </a>
-                                  <a
-                                    href="https://web.archive.org/web/20260312165547/http://www.studentsport.ie/"
-                                    target="_blank"
-                                    data-toggle="tooltip"
-                                    title=""
-                                    rel="noopener"
-                                    className="dropdown-item"
-                                    data-original-title="SSI (Student Sport)"
-                                  >
-                                    SSI <small>(Student Sport)</small>&nbsp;»
-                                  </a>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>*/}
+                        </div>
                       </li>
-
-                    
 
                       <li>
                         <div className="dropdown">
@@ -332,18 +220,6 @@ const Header = () => {
                       </li>
 
                       {/*<li className="nav-item">
-                        <div>
-                          <a
-                            href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/whatson"
-                            className="nav-link"
-                          >
-                            <i className="fa fa-sm fa-calendar mr-2"></i>What's
-                            On
-                          </a>
-                        </div>
-                      </li>
-
-                      <li className="nav-item">
                         <div className="dropdown">
                           <a
                             href="#"

@@ -13,6 +13,8 @@ import Footer from './Footer'
 import Societies from './Societies'
 import Home from './Home'
 //import WhatsOn from './WhatsOn'
+//import CalendarCreator from './CalendarCreator'
+import MySocieties from './MySocieties'
 
 function Layout() {
   return (
@@ -32,7 +34,10 @@ createRoot(document.getElementById('root')).render(
           <Route path="/" element={<Home />} />
           <Route path="/society/:id" element={<Detail />} />
           <Route path="/societies" element={<Societies />} />
-          {/* <Route path="/whatson" element={<WhatsOn />} /> */}
+          {/* <Route path="/whatson" element={<WhatsOn />} /> 
+          <Route path="/generate-calendar" element={<CalendarCreator />} /> */}
+          <Route path="/mysocieties" element={<MySocieties />} />
+          <Route path="/mysocs" element={<MySocieties />} />
         </Route>
       </Routes>
     </BrowserRouter>

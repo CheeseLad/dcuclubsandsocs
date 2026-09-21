@@ -46,6 +46,7 @@ function Home() {
               <p>There are over 140 Clubs & Societies in DCU spread across campuses and they cater for all interests, hobbies and passions. You can even set up your own! From developing existing skills to trying something completely new, joining a DCU club or society is one of the best decisions you will make in DCU. Involvement in club and society activity gives you a welcome break from your academic studies and the skills and competencies gained through committees and other organisational work will really enhance your CV and give you that extra edge in the your future career. In addition, being involved in DCU clubs and societies will enhance your social life and help you make lifelong friends as well as creating memories to treasure for life.</p>
               <div className="app-download-area">
                 <div className="app-download-btn"><Link to="/societies"><i className="fa fa-users" aria-hidden="true" /><p className="mb-0"><span>Browse all</span> SOCIETIES</p></Link></div>
+                <div className="app-download-btn"><Link to="/mysocieties"><i className="fa fa-star" aria-hidden="true" /><p className="mb-0"><span>View my</span> SOCIETIES</p></Link></div>
               </div>
             </div>
           </div>
@@ -62,6 +63,7 @@ function Home() {
       <section className="our-monthly-membership section_padding_50 clearfix"><div className="container"><div className="row align-items-center">
         <div className="col-md-8"><div className="membership-description"><h2>Ready to find your thing?</h2><p>Explore DCU Clubs &amp; Socs and make this year count.</p></div></div>
         <div className="col-md-4"><div className="get-started-button"><Link to="/societies">Browse societies</Link></div></div>
+        
       </div></div></section>
     </main>
   )

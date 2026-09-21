@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+const MY_SOCIETIES_STORAGE_KEY = "mySocieties";
+
 const Societies = () => {
   const sortOptions = [
     {
@@ -29,6 +31,16 @@ const Societies = () => {
   const [societyTypes, setSocietyTypes] = useState([]);
   const [filterClubType, setFilterClubType] = useState("");
   const [sortBy, setSortBy] = useState(sortOptions[0]);
+  const [mySocieties, setMySocieties] = useState(() => {
+    try {
+      const storedSocieties = localStorage.getItem(MY_SOCIETIES_STORAGE_KEY);
+      const parsedSocieties = JSON.parse(storedSocieties);
+
+      return Array.isArray(parsedSocieties) ? parsedSocieties : [];
+    } catch {
+      return [];
+    }
+  });
 
   async function fetchSocietyList(clubType = "", sortOption = sortOptions[0]) {
     const url = "https://api.hellorubric.com/";
@@ -86,6 +98,21 @@ const Societies = () => {
   useEffect(() => {
     fetchSocietyList(filterClubType, sortBy);
   }, [filterClubType, sortBy]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      MY_SOCIETIES_STORAGE_KEY,
+      JSON.stringify(mySocieties),
+    );
+  }, [mySocieties]);
+
+  const handleSocietyToggle = (societyId) => {
+    setMySocieties((currentSocieties) =>
+      currentSocieties.includes(societyId)
+        ? currentSocieties.filter((id) => id !== societyId)
+        : [...currentSocieties, societyId],
+    );
+  };
 
   const filteredSocieties = societyList.filter((society) => {
     const query = searchQuery.trim().toLowerCase();
@@ -266,6 +293,11 @@ const Societies = () => {
           </h3>
 
           <div className="row justify-content-center">
+
+            <i className="col-12 text-center mb-2 px-4">
+              Click the <i className="fas fa-plus"></i> icon to add a society to your list of societies. View them in <a href="/mysocieties" className="text-success">My Societies</a>
+            </i>
+
             {filteredSocieties.map((society) => (
               <div
                 className={`cs_profile col-12 col-sm-6 col-lg-4 ${
@@ -275,11 +307,33 @@ const Societies = () => {
                 key={society.societyid}
               >
                 <div className="card">
-                  <a href={`/society/${society.societyid}`}>
-                    <div className="card-header text-center pb-0">
+                  <div className="card-header d-flex align-items-center justify-content-between pb-0">
+                    <a href={`/society/${society.societyid}`}>
                       <h3 className="card-title">{society.title}</h3>
-                    </div>
-                  </a>
+                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-link text-dark p-0"
+                      onClick={() =>
+                        handleSocietyToggle(String(society.societyid))
+                      }
+                      aria-label={`${mySocieties.includes(String(society.societyid)) ? "Remove" : "Add"} ${society.title} ${mySocieties.includes(String(society.societyid)) ? "from" : "to"} my societies`}
+                      title={
+                        mySocieties.includes(String(society.societyid))
+                          ? "Remove from my societies"
+                          : "Add to my societies"
+                      }
+                    >
+                      <i
+                        className={`fas fa-${
+                          mySocieties.includes(String(society.societyid))
+                            ? "minus"
+                            : "plus"
+                        } fa-lg`}
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </div>
 
                   <a
                     className="card-img-container"
