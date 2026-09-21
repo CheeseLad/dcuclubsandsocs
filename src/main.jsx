@@ -38,7 +38,6 @@ createRoot(document.getElementById('root')).render(
           {/* <Route path="/whatson" element={<WhatsOn />} /> 
           <Route path="/generate-calendar" element={<CalendarCreator />} /> */}
           <Route path="/mysocieties" element={<MySocieties />} />
-          <Route path="/mysocs" element={<MySocieties />} />
           <Route path="/myevents" element={<MyEvents />} />
         </Route>
       </Routes>

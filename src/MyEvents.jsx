@@ -331,7 +331,7 @@ const MyEvents = () => {
                                   rowSpan="2"
                                   style={{ minWidth: "150px", width: "150px" }}
                                 >
-                                  <a href={societyLogo} className="lightbox">
+                                  <a href={`/society/${societyId}`} className="lightbox">
                                     <img
                                       className="img-thumbnail"
                                       src={societyLogo}
@@ -378,6 +378,20 @@ const MyEvents = () => {
                                     <br />
                                     INFO
                                   </button>
+                                </td>
+
+                                                                                              <td className="text-left align-middle">
+                                  <a
+                                    href={`https://dcustudentlife.hellorubric.com/?s=${societyId}&eid=${event.eventid}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <button className="btn btn-success py-1">
+                                      <i className="fa fa-link mr-1"></i>
+                                      <br />
+                                      Rubric
+                                    </button>
+                                  </a>
                                 </td>
                               </tr>
                               {eventDetails[event.eventid] && (

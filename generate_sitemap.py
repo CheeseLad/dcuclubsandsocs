@@ -68,6 +68,8 @@ def generate_sitemap(societies):
     static_pages = [
         "/",
         "/societies",
+        "/mysocieties",
+        "/myevents",
     ]
 
     for path in static_pages:
@@ -119,4 +121,4 @@ if __name__ == "__main__":
     generate_sitemap(societies)
 
     print(f"Sitemap generated: {OUTPUT_FILE}")
-    print(f"URLs generated: {len(societies) + 2}")
+    print(f"URLs generated: {len(societies) + 3}")
