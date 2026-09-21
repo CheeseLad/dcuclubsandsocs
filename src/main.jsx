@@ -15,6 +15,7 @@ import Home from './Home'
 //import WhatsOn from './WhatsOn'
 //import CalendarCreator from './CalendarCreator'
 import MySocieties from './MySocieties'
+import MyEvents from './MyEvents'
 
 function Layout() {
   return (
@@ -38,6 +39,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/generate-calendar" element={<CalendarCreator />} /> */}
           <Route path="/mysocieties" element={<MySocieties />} />
           <Route path="/mysocs" element={<MySocieties />} />
+          <Route path="/myevents" element={<MyEvents />} />
         </Route>
       </Routes>
     </BrowserRouter>

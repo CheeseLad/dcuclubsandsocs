@@ -112,8 +112,17 @@ const Header = () => {
                       </li>*/}
 
                                             <li className="nav-item">
+                        <a
+                          className="nav-link"
+                          href="/myevents"
+                        >
+                          <i className="fa fa-fw fa-calendar mr-2"></i> My Events
+                        </a>
+                      </li>
+
+                                            <li className="nav-item">
                         <a className="nav-link" href="/mysocieties">
-                          <i className="fa fa-fw fa-list-ul mr-2"></i> My Societies
+                          <i className="fa fa-fw fa-star mr-2"></i> My Societies
                         </a>
                       </li>
 
@@ -121,21 +130,12 @@ const Header = () => {
                       <li className="nav-item">
                         <a className="nav-link" href="/societies">
                           <i className="fa fa-fw fa-list-ul mr-2"></i> Societies
-                          List
                         </a>
                       </li>
+
+
 
                       {/* <li className="nav-item">
-                        <a
-                          className="nav-link"
-                          href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/whatson"
-                        >
-                          <i className="fa fa-fw fa-calendar mr-2"></i> What's
-                          On
-                        </a>
-                      </li>
-
-                      <li className="nav-item">
                         <a
                           className="nav-link"
                           href="https://web.archive.org/web/20260312165547/https://dcuclubsandsocs.ie/support"
@@ -159,6 +159,15 @@ const Header = () => {
                     </ul>
 
                     <ul className="navbar-nav nav-mega ml-auto">
+
+                                            <li className="nav-item">
+                        <div>
+                          <a href="/myevents" className="nav-link">
+                            <i className="fa fa-sm fa-calendar mr-2"></i>My
+                            Events
+                          </a>
+                        </div>
+                      </li>
                       <li className="nav-item">
                         <div>
                           <a href="/mysocieties" className="nav-link">

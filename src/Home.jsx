@@ -47,6 +47,7 @@ function Home() {
               <div className="app-download-area">
                 <div className="app-download-btn"><Link to="/societies"><i className="fa fa-users" aria-hidden="true" /><p className="mb-0"><span>Browse all</span> SOCIETIES</p></Link></div>
                 <div className="app-download-btn"><Link to="/mysocieties"><i className="fa fa-star" aria-hidden="true" /><p className="mb-0"><span>View my</span> SOCIETIES</p></Link></div>
+                <div className="app-download-btn"><Link to="/myevents"><i className="fa fa-calendar" aria-hidden="true" /><p className="mb-0"><span>View my</span> EVENTS</p></Link></div>
               </div>
             </div>
           </div>
