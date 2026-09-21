@@ -9,7 +9,9 @@ const MySocieties = () => {
     const storedSocieties = localStorage.getItem(MY_SOCIETIES_STORAGE_KEY);
 
     try {
-      return JSON.parse(storedSocieties);
+      const parsedSocieties = JSON.parse(storedSocieties);
+
+      return Array.isArray(parsedSocieties) ? parsedSocieties : [];
     } catch {
       return [];
     }
