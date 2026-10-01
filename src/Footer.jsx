@@ -234,7 +234,7 @@ const Footer = () => {
               className="btn btn-success btn-sm px-3"
               //data-toggle="modal"
               //data-target="#modal_feedback"
-            ><i className="fa fa-envelope mr-1"></i> Have feedback or want to report a bug? Click here to send me an email!
+            ><i className="fa fa-envelope mr-1"></i> Have suggestions or found bugs? Click here to send me an email!
               <i className="fa fa-envelope ml-1"></i></a>
           </div>
 

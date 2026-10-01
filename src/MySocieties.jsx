@@ -64,6 +64,7 @@ const MySocieties = () => {
 
       const data = await response.json();
       setSocietyList(data.results);
+      document.title = "My Societies | DCU Clubs & Socs";
       return data;
     } catch (error) {
       console.error("Failed to fetch society landing page:", error);

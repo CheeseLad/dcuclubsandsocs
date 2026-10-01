@@ -1,16 +1,58 @@
-# React + Vite
+# DCU Clubs & Socs
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Bringing the old [dcuclubsandsocs.ie](https://dcuclubsandsocs.jakefarrell.ie) site back to life using Rubric data, complete with new features such as saving your favorite societies and viewing their events on a dashboard.
 
-Currently, two official plugins are available:
+**Access it here:** [https://dcuclubsandsocs.jakefarrell.ie](https://dcuclubsandsocs.jakefarrell.ie)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Discover Societies**: Browse through all the available clubs and societies at DCU.
+- **My Societies**: Select and save your favorite societies to your browser to quickly access their content later.
+- **My Events**: View a dashboard of all upcoming and past events hosted by your saved societies.
+- **Society Details**: Explore individual societies. View their social links, read their about section, meet the committee, buy memberships, and purchase merchandise.
+- **Search & Filter**: Quickly filter through the extensive list of societies with an integrated search bar.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Screenshots
 
-## Expanding the Oxlint configuration
+### 1. Society Selection
+![My Societies](docs/screenshots/mysocieties.png)
+*Quickly search, select, and manage your favorite societies.*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### 2. Events Dashboard
+![My Events](docs/screenshots/myevents.png)
+*Keep track of upcoming and past events from the societies you follow.*
+
+### 3. Society Detail View
+![Society Details](docs/screenshots/detail.png)
+*View links, committee members, memberships, and merchandise for a specific society.*
+
+## Tech Stack
+
+- **Frontend Core**: Vite 
+- **Styling & UI**: Assure Memberships
+- **Data Source**: Rubric API
+- **Local Persistence**: Browser LocalStorage
+
+## Development Guide
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/CheeseLad/dcuclubsandsocs.git
+   cd dcuclubsandsocs
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   *The app should now be running on `http://localhost:5173` (or your configured port).*
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
