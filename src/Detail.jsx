@@ -1,6 +1,59 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
+const MONTHS = {
+  Jan: 0,
+  Feb: 1,
+  Mar: 2,
+  Apr: 3,
+  May: 4,
+  Jun: 5,
+  Jul: 6,
+  Aug: 7,
+  Sep: 8,
+  Oct: 9,
+  Nov: 10,
+  Dec: 11,
+};
+
+function parseEventDate(event) {
+  const dateText = event.date || event.startdate || event.formatteddate || "";
+  const formattedDate = dateText.match(
+    /\w+,\s+(\d{1,2})\s+(\w{3})\s+(\d{4}),\s+(\d{1,2})\.(\d{2})\s+(AM|PM)/i,
+  );
+
+  if (formattedDate) {
+    const [, day, month, year, hour, minute, meridiem] = formattedDate;
+    let hourNumber = Number(hour);
+
+    if (meridiem.toUpperCase() === "PM" && hourNumber !== 12) {
+      hourNumber += 12;
+    }
+
+    if (meridiem.toUpperCase() === "AM" && hourNumber === 12) {
+      hourNumber = 0;
+    }
+
+    return new Date(
+      Number(year),
+      MONTHS[month.slice(0, 3)],
+      Number(day),
+      hourNumber,
+      Number(minute),
+    ).getTime();
+  }
+
+  const timestamp = Date.parse(dateText);
+  return Number.isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+}
+
+function isTodayOrLater(event) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return parseEventDate(event) >= today.getTime();
+}
+
 const Detail = () => {
   const { id } = useParams();
 
@@ -9,6 +62,7 @@ const Detail = () => {
   const [expandedSections, setExpandedSections] = useState({
     links: true,
     events: true,
+    pastEvents: false,
     about: true,
     committee: false,
     merchandise: false,
@@ -138,6 +192,14 @@ const Detail = () => {
     //console.log("Fetching society landing page for ID:", id);
     fetchSocietyLandingPage(id);
   }, [id]);
+
+  const events = (societyData?.sections?.[0]?.array || [])
+    .filter(isTodayOrLater)
+    .sort((firstEvent, secondEvent) => parseEventDate(firstEvent) - parseEventDate(secondEvent));
+
+  const pastEvents = (societyData?.sections?.[0]?.array || [])
+    .filter((e) => !isTodayOrLater(e))
+    .sort((firstEvent, secondEvent) => parseEventDate(secondEvent) - parseEventDate(firstEvent));
 
   return (
     <div>
@@ -349,9 +411,9 @@ const Detail = () => {
                   >
                     <i className="fa fa-lg mr-3"></i>
                     Upcoming Event
-                    {societyData?.sections[0]?.array.length !== 1 ? "s" : ""}
+                    {events.length !== 1 ? "s" : ""}
                     <span className="float-right badge badge-light">
-                      {societyData?.sections[0]?.array.length}
+                      {events.length}
                     </span>
                   </h5>
                   <div
@@ -359,7 +421,7 @@ const Detail = () => {
                     id="events_table"
                   >
                     <div className="table-responsive">
-                      {societyData?.sections[0]?.array.map((event, index) => (
+                      {events.map((event, index) => (
                         <table
                           key={event.eventid ?? index}
                           className="table table-striped mb-0"
@@ -403,7 +465,7 @@ const Detail = () => {
                               <td className="text-center align-middle">
                                 Cost:
                                 <br />
-                                <b>€&nbsp;{event.info}</b>
+                                <b>{event.info}</b>
                               </td>
                               <td className="text-center align-middle">
                                 <button
@@ -431,6 +493,190 @@ const Detail = () => {
                                     </button>
                                   </a>
                                 </td>
+                            </tr>
+                            {eventDetails[event.eventid] && (
+                              <>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
+                                  <td colSpan="7" className="text-center"></td>
+                                </tr>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
+                                  <td colSpan="7" className="break-all">
+                                    <h5>
+                                      Location:{" "}
+                                      <b>
+                                        {
+                                          eventDetails[event.eventid]
+                                            .eventAddress
+                                        }
+                                      </b>
+                                    </h5>
+                                    <hr />
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html:
+                                          eventDetails[event.eventid]
+                                            .eventDescription,
+                                      }}
+                                    />
+                                  </td>
+                                </tr>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
+                                  <td colSpan="7" className="text-center"></td>
+                                </tr>
+                                <tr
+                                  className={`event_details_${event.eventid}`}
+                                >
+                                  <td colSpan="7" className="break-all">
+                                    <h5>Details:</h5>
+                                    <hr />
+                                    <table>
+                                      <tbody>
+                                        <tr
+                                          className={`event_details_${event.eventid}`}
+                                        >
+                                          <td className="text-center align-middle">
+                                            <i className="fa fa-users"></i>
+                                            &nbsp;Max:
+                                            <br />
+                                            <b>
+                                              {
+                                                eventDetails[event.eventid]
+                                                  .maxTickets
+                                              }
+                                            </b>
+                                          </td>
+                                          <td className="text-center align-middle">
+                                            Starts:
+                                            <br />
+                                            <b>
+                                              {
+                                                eventDetails[event.eventid]
+                                                  .eventTime
+                                              }
+                                            </b>
+                                          </td>
+                                          <td className="text-center align-middle">
+                                            Ends:
+                                            <br />
+                                            <b>
+                                              {
+                                                eventDetails[event.eventid]
+                                                  .eventEndTime
+                                              }
+                                            </b>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </>
+                            )}
+                          </tbody>
+                        </table>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card mb-3 collapse_section" id="past_events">
+                  <h5
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.pastEvents ? "active" : ""}`}
+                    data-toggle="collapse"
+                    data-target="#past_events_table"
+                    aria-expanded={expandedSections.pastEvents}
+                    onClick={() => toggleSection("pastEvents")}
+                  >
+                    <i className="fa fa-lg mr-3"></i>
+                    Past Event
+                    {pastEvents.length !== 1 ? "s" : ""}
+                    <span className="float-right badge badge-light">
+                      {pastEvents.length}
+                    </span>
+                  </h5>
+                  <div
+                    className={`card-body p-0 collapse ${expandedSections.pastEvents ? "show" : ""}`}
+                    id="past_events_table"
+                  >
+                    <div className="table-responsive">
+                      {pastEvents.map((event, index) => (
+                        <table
+                          key={`past-${event.eventid ?? index}`}
+                          className="table table-striped mb-0"
+                        >
+                          <tbody>
+                            <tr
+                              className="show_info pointer"
+                              data-id={event.eventid}
+                              data-type="event"
+                            >
+                              <td
+                                className="text-center align-top p-0"
+                                id="activity_img_644"
+                                rowSpan="2"
+                                style={{ minWidth: "150px", width: "150px" }}
+                              >
+                                <a href={event.image} className="lightbox">
+                                  <img
+                                    className="img-thumbnail"
+                                    src={event.image}
+                                    style={{ width: "150px" }}
+                                  />
+                                </a>
+                              </td>
+                              <th colSpan="7" className="h5 align-middle">
+                                <i className="fa fa-calendar-day mr-3"></i>
+                                {event.title}{" "}
+                              </th>
+                            </tr>
+                            <tr
+                              className="show_info pointer"
+                              data-id={event.eventid}
+                              data-type="event"
+                            >
+                              <td className="text-center align-middle"></td>
+                              <td className="text-center align-middle">
+                                Date:
+                                <br />
+                                <b>{event.formatteddate}</b>
+                              </td>
+                              <td className="text-center align-middle">
+                                Cost:
+                                <br />
+                                <b>{event.info}</b>
+                              </td>
+                              <td className="text-center align-middle">
+                                <button
+                                  className="btn btn-info py-1"
+                                  onClick={() =>
+                                    fetchEventDetails(event.eventid, id)
+                                  }
+                                >
+                                  <i className="fa fa-info-circle mr-1"></i>
+                                  <br />
+                                  INFO
+                                </button>
+                              </td>
+
+                                                              <td className="text-left align-middle">
+                                <a
+                                  href={`https://dcustudentlife.hellorubric.com/?s=${id}&eid=${event.eventid}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <button className="btn btn-success py-1">
+                                    <i className="fa fa-link mr-1"></i>
+                                    <br />
+                                    Rubric
+                                  </button>
+                                </a>
+                              </td>
                             </tr>
                             {eventDetails[event.eventid] && (
                               <>

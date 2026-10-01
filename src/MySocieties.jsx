@@ -5,6 +5,7 @@ const MY_SOCIETIES_STORAGE_KEY = "mySocieties";
 
 const MySocieties = () => {
   const [societyList, setSocietyList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [mySocieties, setMySocieties] = useState(() => {
     const storedSocieties = localStorage.getItem(MY_SOCIETIES_STORAGE_KEY);
 
@@ -142,11 +143,36 @@ const MySocieties = () => {
                 <i className="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>
+            <div className="input-group mb-3" style={{ position: "relative", zIndex: 10 }}>
+              <input
+                type="text"
+                className="form-control border-dark"
+                placeholder="Search societies..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {searchQuery && (
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-outline-dark"
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+              )}
+            </div>
             <div
               className="border rounded p-3"
               style={{ maxHeight: "260px", overflowY: "auto" }}
             >
-              {societyList.map((society) => {
+              {societyList
+                .filter((society) => {
+                  const name = society.title || society.name || "";
+                  return name.toLowerCase().includes(searchQuery.toLowerCase());
+                })
+                .map((society) => {
                 const societyId = String(society.societyid);
 
                 return (

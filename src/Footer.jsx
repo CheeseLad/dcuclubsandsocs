@@ -227,8 +227,19 @@ const Footer = () => {
               <i className="fa fa-bug ml-1"></i></a>
           </div>
 
+                    <div className="d-block text-center mt-4 px-4">
+            <a
+              href="mailto:jake_farrell@outlook.com"
+              target="_blank"
+              className="btn btn-success btn-sm px-3"
+              //data-toggle="modal"
+              //data-target="#modal_feedback"
+            ><i className="fa fa-envelope mr-1"></i> Have feedback or want to report a bug? Click here to send me an email!
+              <i className="fa fa-envelope ml-1"></i></a>
+          </div>
+
           <div className="d-flex align-items-center justify-content-center mt-3">
-            <span className="pt-3">Built and maintained by</span>
+            <span className="pt-3">Website design built and maintained by</span>
             <a
               target="_blank"
               className="px-2"

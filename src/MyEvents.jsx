@@ -70,6 +70,7 @@ const MyEvents = () => {
   const [expandedSections, setExpandedSections] = useState({
     links: true,
     events: true,
+    pastEvents: false,
     about: true,
     committee: false,
     merchandise: false,
@@ -244,6 +245,22 @@ const MyEvents = () => {
         parseEventDate(firstEvent) - parseEventDate(secondEvent),
     );
 
+  const pastEvents = societyData
+    .flatMap((society) =>
+      (society.sections?.[0]?.array || [])
+        .filter((e) => !isTodayOrLater(e))
+        .map((event) => ({
+          event,
+          societyId: String(society.societyid),
+          societyName: society.name,
+          societyLogo: society.logo_uploaded,
+        })),
+    )
+    .sort(
+      ({ event: firstEvent }, { event: secondEvent }) =>
+        parseEventDate(secondEvent) - parseEventDate(firstEvent),
+    );
+
   return (
     <div>
       {" "}
@@ -362,7 +379,7 @@ const MyEvents = () => {
                                 <td className="text-center align-middle">
                                   Cost:
                                   <br />
-                                  <b>€&nbsp;{event.info}</b>
+                                  <b>{event.info}</b>
                                 </td>
                                 <td className="text-center align-middle">
                                   <button
@@ -381,6 +398,209 @@ const MyEvents = () => {
                                 </td>
 
                                                                                               <td className="text-left align-middle">
+                                  <a
+                                    href={`https://dcustudentlife.hellorubric.com/?s=${societyId}&eid=${event.eventid}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <button className="btn btn-success py-1">
+                                      <i className="fa fa-link mr-1"></i>
+                                      <br />
+                                      Rubric
+                                    </button>
+                                  </a>
+                                </td>
+                              </tr>
+                              {eventDetails[event.eventid] && (
+                                <>
+                                  <tr
+                                    className={`event_details_${event.eventid}`}
+                                  >
+                                    <td
+                                      colSpan="7"
+                                      className="text-center"
+                                    ></td>
+                                  </tr>
+                                  <tr
+                                    className={`event_details_${event.eventid}`}
+                                  >
+                                    <td colSpan="7" className="break-all">
+                                      <h5>
+                                        Location:{" "}
+                                        <b>
+                                          {
+                                            eventDetails[event.eventid]
+                                              .eventAddress
+                                          }
+                                        </b>
+                                      </h5>
+                                      <hr />
+                                      <p
+                                        dangerouslySetInnerHTML={{
+                                          __html:
+                                            eventDetails[event.eventid]
+                                              .eventDescription,
+                                        }}
+                                      />
+                                    </td>
+                                  </tr>
+                                  <tr
+                                    className={`event_details_${event.eventid}`}
+                                  >
+                                    <td
+                                      colSpan="7"
+                                      className="text-center"
+                                    ></td>
+                                  </tr>
+                                  <tr
+                                    className={`event_details_${event.eventid}`}
+                                  >
+                                    <td colSpan="7" className="break-all">
+                                      <h5>Details:</h5>
+                                      <hr />
+                                      <table>
+                                        <tbody>
+                                          <tr
+                                            className={`event_details_${event.eventid}`}
+                                          >
+                                            <td className="text-center align-middle">
+                                              <i className="fa fa-users"></i>
+                                              &nbsp;Max:
+                                              <br />
+                                              <b>
+                                                {
+                                                  eventDetails[event.eventid]
+                                                    .maxTickets
+                                                }
+                                              </b>
+                                            </td>
+                                            <td className="text-center align-middle">
+                                              Starts:
+                                              <br />
+                                              <b>
+                                                {
+                                                  eventDetails[event.eventid]
+                                                    .eventTime
+                                                }
+                                              </b>
+                                            </td>
+                                            <td className="text-center align-middle">
+                                              Ends:
+                                              <br />
+                                              <b>
+                                                {
+                                                  eventDetails[event.eventid]
+                                                    .eventEndTime
+                                                }
+                                              </b>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </>
+                              )}
+                            </tbody>
+                          </table>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-12 mt-3">
+                <div className="card mb-3 collapse_section" id="past_events">
+                  <h5
+                    className={`card-header bg-dark text-light pointer collapse_title ${expandedSections.pastEvents ? "active" : ""}`}
+                    data-toggle="collapse"
+                    data-target="#past_events_table"
+                    aria-expanded={expandedSections.pastEvents}
+                    onClick={() => toggleSection("pastEvents")}
+                  >
+                    <i className="fa fa-lg mr-3"></i>
+                    Past Event{pastEvents.length !== 1 ? "s" : ""}
+                    <span className="float-right badge badge-light">
+                      {pastEvents.length}
+                    </span>
+                  </h5>
+                  <div
+                    className={`card-body p-0 collapse ${expandedSections.pastEvents ? "show" : ""}`}
+                    id="past_events_table"
+                  >
+                    <div className="table-responsive">
+                      {pastEvents.map(
+                        (
+                          { event, societyId, societyName, societyLogo },
+                          index,
+                        ) => (
+                          <table
+                            key={`past-${societyId}-${event.eventid ?? index}`}
+                            className="table table-striped mb-0"
+                          >
+                            <tbody>
+                              <tr
+                                className="show_info pointer"
+                                data-id={event.eventid}
+                                data-type="event"
+                              >
+                                <td
+                                  className="text-center align-top p-0"
+                                  id="activity_img_644"
+                                  rowSpan="2"
+                                  style={{ minWidth: "150px", width: "150px" }}
+                                >
+                                  <a href={`/society/${societyId}`} className="lightbox">
+                                    <img
+                                      className="img-thumbnail"
+                                      src={societyLogo}
+                                      alt={`${societyName} logo`}
+                                      style={{ width: "150px" }}
+                                    />
+                                  </a>
+                                </td>
+                                <th colSpan="7" className="h5 align-middle">
+                                  <i className="fa fa-calendar-day mr-3"></i>
+                                  {event.title}{" "}
+                                  <small className="d-block text-muted">
+                                    {societyName}
+                                  </small>
+                                </th>
+                              </tr>
+                              <tr
+                                className="show_info pointer"
+                                data-id={event.eventid}
+                                data-type="event"
+                              >
+                                <td className="text-center align-middle"></td>
+                                <td className="text-center align-middle">
+                                  Date:
+                                  <br />
+                                  <b>{event.formatteddate}</b>
+                                </td>
+                                <td className="text-center align-middle">
+                                  Cost:
+                                  <br />
+                                  <b>{event.info}</b>
+                                </td>
+                                <td className="text-center align-middle">
+                                  <button
+                                    className="btn btn-info py-1"
+                                    onClick={() =>
+                                      fetchEventDetails(
+                                        event.eventid,
+                                        societyId,
+                                      )
+                                    }
+                                  >
+                                    <i className="fa fa-info-circle mr-1"></i>
+                                    <br />
+                                    INFO
+                                  </button>
+                                </td>
+
+                                                              <td className="text-left align-middle">
                                   <a
                                     href={`https://dcustudentlife.hellorubric.com/?s=${societyId}&eid=${event.eventid}`}
                                     target="_blank"
